@@ -1,0 +1,284 @@
+.contactoSection {
+  --contacto-parallax-dorada: 0px;
+  --contacto-parallax-dorada2: 0px;
+  --contacto-parallax-hoja: 0px;
+  --contacto-parallax-hongis: 0px;
+  --contacto-parallax-polen: 0px;
+  --contacto-parallax-sol: 0px;
+  align-items: center;
+  background: var(--bg);
+  display: flex;
+  min-height: 100svh;
+  overflow: hidden;
+  padding: 5rem 1rem;
+  position: relative;
+}
+
+/* Hoja decorativa superior izquierda */
+.contactoHojaGrande {
+  height: 499.8px;
+  left: -125.6px;
+  object-fit: cover;
+  pointer-events: none;
+  position: absolute;
+  top: -190.2px;
+  transform: translate3d(0, var(--contacto-parallax-hoja), 0) rotate(-151.8deg);
+  width: 495.4px;
+  z-index: 0;
+}
+
+/* Sol verde decorativo */
+.contactoSolVerde {
+  height: 590.1px;
+  left: 354.7px;
+  object-fit: cover;
+  pointer-events: none;
+  position: absolute;
+  top: 800.9px;
+  transform: translate3d(0, var(--contacto-parallax-sol), 0);
+  width: 578.3px;
+  z-index: 0;
+}
+
+.contactoContainer {
+  align-items: center;
+  display: grid;
+  gap: clamp(3rem, 8vw, 8rem);
+  grid-template-columns: minmax(0, 1fr) minmax(520px, 760px);
+  margin: 0 auto;
+  max-width: 1400px;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.contactoHeading h2 {
+  color: #3d5021;
+  font-family:
+    'Open Sauce',
+    'Aileron',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    sans-serif;
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin: 0;
+}
+
+.contactoCard {
+  background: #3d5021;
+  border-radius: 32px;
+  padding: clamp(2rem, 4vw, 3.5rem);
+  position: relative;
+  width: 100%;
+  z-index: 0;
+}
+
+/* Prolongación verde hacia la parte inferior */
+.contactoCard::after {
+  background: #3d5021;
+  content: '';
+  height: 70vh;
+  left: 0;
+  position: absolute;
+  top: calc(100% - 32px);
+  width: 100%;
+  z-index: -1;
+}
+
+/* Polen sobre la esquina superior izquierda */
+.contactoPolen {
+  height: 94px;
+  left: -40px;
+  object-fit: cover;
+  pointer-events: none;
+  position: absolute;
+  top: 40px;
+  transform: translate3d(0, var(--contacto-parallax-polen), 0);
+  width: 90px;
+  z-index: 3;
+}
+
+.contactoHojaDorada {
+  height: 90px;
+  left: -40px;
+  object-fit: cover;
+  pointer-events: none;
+  position: absolute;
+  top: 589px;
+  transform: translate3d(0, var(--contacto-parallax-dorada), 0) rotate(-118.9deg);
+  width: 80px;
+  z-index: 3;
+}
+
+.contactoHojaDorada2 {
+  height: 76px;
+  left: 600px;
+  object-fit: cover;
+  pointer-events: none;
+  position: absolute;
+  top: 600px;
+  transform: translate3d(0, var(--contacto-parallax-dorada2), 0) rotate(-37.7deg);
+  width: 75px;
+  z-index: 3;
+}
+
+.contactoForm {
+  display: grid;
+  gap: 1.25rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Imagen inferior dentro de la tarjeta */
+.contactoHongis {
+  display: block;
+  height: clamp(280px, 38vh, 440px);
+  left: 0;
+  object-fit: cover;
+  object-position: center top;
+  pointer-events: none;
+  position: absolute;
+  top: calc(100% - 4rem);
+  transform: translate3d(0, var(--contacto-parallax-hongis), 0);
+  width: 100%;
+  z-index: 1;
+}
+
+.contactoHojaGrande,
+.contactoSolVerde,
+.contactoPolen,
+.contactoHojaDorada,
+.contactoHojaDorada2,
+.contactoHongis {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contactoHojaGrande {
+    transform: rotate(-151.8deg);
+  }
+
+  .contactoSolVerde,
+  .contactoPolen,
+  .contactoHongis {
+    transform: none;
+  }
+
+  .contactoHojaDorada {
+    transform: rotate(-118.9deg);
+  }
+
+  .contactoHojaDorada2 {
+    transform: rotate(-37.7deg);
+  }
+}
+
+.formGroup {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.formGroup label {
+  color: #fff6e7;
+  font-family:
+    'Aileron',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.formGroup input,
+.formGroup textarea {
+  background: #fff6e7;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: #3d5021;
+  font: inherit;
+  outline: none;
+  padding: 0.85rem 1rem;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+  width: 100%;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  border-color: #a9bd70;
+  box-shadow: 0 0 0 3px rgb(169 189 112 / 28%);
+}
+
+.formGroup textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.submitButton {
+  background: #fff6e7;
+  border: 2px solid #fff6e7;
+  border-radius: 999px;
+  color: #3d5021;
+  cursor: pointer;
+  font-family:
+    'Aileron',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  justify-self: start;
+  padding: 0.85rem 1.5rem;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.submitButton:hover {
+  background: transparent;
+  color: #fff6e7;
+}
+
+@media (max-width: 768px) {
+  .contactoSection {
+    align-items: flex-start;
+    padding: 7rem 1rem 4rem;
+  }
+
+  .contactoContainer {
+    gap: 3rem;
+    grid-template-columns: 1fr;
+  }
+
+  .contactoHeading h2 {
+    font-size: clamp(3rem, 16vw, 5rem);
+  }
+
+  .contactoCard {
+    border-radius: 24px;
+  }
+
+  .contactoCard::after {
+    top: calc(100% - 24px);
+  }
+
+  .contactoHongis {
+    height: 280px;
+  }
+}

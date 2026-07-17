@@ -1,0 +1,350 @@
+.page {
+  background: var(--bg);
+  min-height: 100svh;
+  overflow: hidden;
+  padding: clamp(9rem, 15vh, 12rem) 1.5rem 6rem;
+  position: relative;
+}
+
+.donarImage {
+  border-radius: 50%;
+  height: 428.3px;
+  left: -106.1px;
+  object-fit: cover;
+  pointer-events: none;
+  position: absolute;
+  top: 623.3px;
+  width: 428.3px;
+  z-index: 0;
+}
+
+.layout {
+  display: grid;
+  gap: clamp(3rem, 8vw, 8rem);
+  grid-template-columns: minmax(260px, 0.7fr) minmax(600px, 1.3fr);
+  margin: 0 auto;
+  max-width: 1320px;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.titleBlock {
+  align-self: start;
+  position: sticky;
+  top: 8rem;
+}
+
+.titleBlock > p {
+  color: #7f9544;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.titleBlock h1 {
+  color: var(--green-bg-letters2);
+  font-family: 'Open Sauce', 'Aileron', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: clamp(4rem, 8vw, 7rem);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+}
+
+.destinations h2 {
+  color: var(--green-bg-letters2);
+  font-family: 'Open Sauce', 'Aileron', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+  max-width: none;
+  text-align: center;
+}
+
+.selectionStep,
+.amountStep {
+  animation: stepFade 350ms ease both;
+}
+
+@keyframes stepFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.card {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.16), transparent 34%),
+    linear-gradient(135deg, #3d5121, #7f9544);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 26px;
+  box-shadow:
+    0 2px 1px rgba(255, 255, 255, 0.2) inset,
+    0 -3px 4px rgba(25, 34, 15, 0.17) inset,
+    0 7px 10px rgba(39, 51, 22, 0.16),
+    0 18px 32px rgba(39, 51, 22, 0.12);
+  color: #ffffff;
+  cursor: pointer;
+  min-height: 270px;
+  overflow: hidden;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  position: relative;
+  text-align: left;
+  transition: box-shadow 200ms ease, transform 200ms ease;
+}
+
+.card::before {
+  background: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.04) 28%,
+    transparent 48%,
+    rgba(16, 24, 9, 0.08) 100%
+  );
+  border-radius: inherit;
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.card::after {
+  background-image:
+    repeating-linear-gradient(8deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(98deg, rgba(16, 24, 9, 0.018) 0 1px, transparent 1px 5px);
+  content: '';
+  inset: 0;
+  mix-blend-mode: soft-light;
+  opacity: 0.75;
+  pointer-events: none;
+  position: absolute;
+}
+
+.card:hover {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 5px 5px rgba(25, 34, 15, 0.18),
+    0 15px 22px rgba(25, 34, 15, 0.22),
+    0 30px 48px rgba(25, 34, 15, 0.14),
+    inset 0 2px 1px rgba(255, 255, 255, 0.32),
+    inset 0 -3px 4px rgba(25, 34, 15, 0.2);
+  transform: translateY(-5px) rotateX(0.4deg);
+}
+
+.card > h3,
+.card > p {
+  position: relative;
+  z-index: 1;
+}
+
+.card h3 {
+  color: #ffffff;
+  font-family: 'Open Sauce', 'Aileron', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.card p {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin-top: 0.85rem;
+  max-width: 340px;
+}
+
+.card strong {
+  bottom: 1.5rem;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 400;
+  position: absolute;
+  right: 1.5rem;
+  z-index: 1;
+}
+
+.amountStep {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.13), transparent 34%),
+    linear-gradient(135deg, #3d5121, #7f9544);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 28px;
+  box-shadow:
+    inset 0 2px 1px rgba(255, 255, 255, 0.22),
+    inset 0 -3px 4px rgba(25, 34, 15, 0.16),
+    0 20px 45px rgba(39, 51, 22, 0.18);
+  color: #ffffff;
+  margin: 2.5rem auto 0;
+  max-width: 620px;
+  padding: clamp(2rem, 5vw, 3.5rem);
+}
+
+.amountStep .backButton {
+  background: transparent;
+  border: 0;
+  color: rgba(255, 255, 255, 0.78);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  padding: 0;
+}
+
+.amountStep > p {
+  color: #dfe8bd;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.amountStep h2 {
+  color: #ffffff;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  margin: 0.65rem 0 0;
+  text-align: left;
+}
+
+.amountStep > span {
+  color: rgba(255, 255, 255, 0.8);
+  display: block;
+  line-height: 1.5;
+  margin-top: 0.8rem;
+}
+
+.amountStep > label {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 800;
+  margin: 2rem 0 0.65rem;
+}
+
+.amountField {
+  align-items: center;
+  background: var(--bg);
+  border-radius: 16px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  padding: 0 1rem;
+}
+
+.amountField > span {
+  color: var(--green-bg-letters2);
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.amountField input {
+  background: transparent;
+  border: 0;
+  color: var(--green-bg-letters2);
+  font: inherit;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+  min-width: 0;
+  outline: none;
+  padding: 1rem 0.75rem;
+  width: 100%;
+}
+
+.amountField strong {
+  color: #777466;
+  font-size: 0.78rem;
+}
+
+.quickAmounts {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 0.8rem;
+}
+
+.quickAmounts button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 999px;
+  color: #ffffff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 0.6rem 0.5rem;
+}
+
+.quickAmounts button:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.donateButton {
+  background: var(--bg);
+  border: 0;
+  border-radius: 999px;
+  color: var(--green-bg-letters2);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  margin-top: 1.5rem;
+  min-height: 50px;
+  width: 100%;
+}
+
+.amountStep > small {
+  color: rgba(255, 255, 255, 0.65);
+  display: block;
+  font-size: 0.75rem;
+  margin-top: 0.8rem;
+  text-align: center;
+}
+
+@media (max-width: 950px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .titleBlock {
+    position: static;
+  }
+}
+
+@media (max-width: 620px) {
+  .page {
+    padding: 8rem 1rem 4rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 240px;
+  }
+
+  .quickAmounts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .selectionStep,
+  .amountStep {
+    animation: none;
+  }
+}

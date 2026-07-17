@@ -1,0 +1,85 @@
+/* Reset y estilos base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Aileron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #ffffff;
+  color: #1f2937;
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Variables globales */
+:root {
+  --bg: #fff6e7;
+  --bg-secondary: #f3f4f6;
+  --text: #6b7280;
+  --text-h: #1f2937;
+  --border: #e5e7eb;
+  --code-bg: #f3f4f6;
+  --green-bg: #39501f;
+  --green-bg-letters: #39501f;
+  --green-bg-letters2: #3d5021;
+  --heading: 'Aileron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  --mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+}
+
+/* Estilos base para elementos HTML */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+}
+
+p {
+  color: var(--text);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--text-h);
+  text-decoration: none;
+}
+
+/* Media queries base */
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 36px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+}
+
+/* Scroll suave */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selección de texto */
+::selection {
+  background: var(--text-h);
+  color: var(--bg);
+}

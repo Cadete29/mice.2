@@ -1,0 +1,154 @@
+.footer {
+  background: var(--green-bg-letters2);
+  color: var(--bg);
+  padding: clamp(3.5rem, 7vw, 6rem) 1rem 1.5rem;
+}
+
+.container {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  grid-template-columns: minmax(260px, 1.6fr) repeat(3, minmax(140px, 1fr));
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.brand {
+  max-width: 360px;
+}
+
+.logo {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+}
+
+.logo img {
+  display: block;
+  height: auto;
+  max-width: 190px;
+  width: 100%;
+}
+
+.brand p,
+.bottom p {
+  color: rgb(255 246 231 / 78%);
+}
+
+.brand p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.column {
+  align-content: start;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.column h2 {
+  color: var(--bg);
+  font-family: 'Open Sauce', 'Aileron', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 0.45rem;
+}
+
+.column a,
+.column span,
+.bottom a {
+  color: rgb(255 246 231 / 78%);
+  font-size: 0.95rem;
+}
+
+.column a,
+.bottom a {
+  transition: color 180ms ease;
+}
+
+.column a:hover,
+.bottom a:hover {
+  color: #fff;
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.social {
+  align-items: center;
+  border: 1px solid rgb(255 246 231 / 42%);
+  border-radius: 50%;
+  display: inline-flex;
+  height: 42px;
+  justify-content: center;
+  width: 42px;
+}
+
+.social svg {
+  fill: none;
+  height: 21px;
+  stroke: var(--bg);
+  stroke-width: 1.8;
+  width: 21px;
+}
+
+.social:nth-child(2) svg,
+.social:nth-child(3) svg,
+.social:nth-child(4) svg {
+  fill: var(--bg);
+  stroke: none;
+}
+
+.socialDot {
+  fill: var(--bg);
+  stroke: none;
+}
+
+.bottom {
+  align-items: center;
+  border-top: 1px solid rgb(255 246 231 / 20%);
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  margin: clamp(3rem, 6vw, 5rem) auto 0;
+  max-width: 1280px;
+  padding-top: 1.5rem;
+}
+
+.bottom p {
+  font-size: 0.86rem;
+  margin: 0;
+}
+
+.bottom div {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.bottom a {
+  font-size: 0.86rem;
+}
+
+@media (max-width: 920px) {
+  .container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .bottom div {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+}
