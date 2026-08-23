@@ -1,20 +1,12 @@
 import styles from './Nosotros.module.css'
-import ceo from '../assets/contacto/solverde.jpg'
-import logistica from '../assets/about/hojita.jpg'
-import tecnologia from '../assets/about/hongito.jpg'
-import administracion from '../assets/contacto/hojadorada.jpg'
-import tesoreria from '../assets/contacto/polen.jpg'
-import social from '../assets/objects/hoja2.jpg'
-import alianzas from '../assets/objects/hoja1.jpg'
+import ceo from '../assets/nosotros/luis.jpeg'
+import cofundador from '../assets/nosotros/co-fun.jpeg'
+import vinculacion from '../assets/nosotros/alianzas.jpeg'
 
 const team = [
-  { name: 'Nombre del director', role: 'Dirección de Logística', photo: logistica },
-  { name: 'Nombre del director', role: 'Dirección de Tecnología', photo: tecnologia },
-  { name: 'Nombre del director', role: 'Dirección de Administración', photo: administracion },
-  { name: 'Nombre del CEO', role: 'CEO', photo: ceo },
-  { name: 'Nombre del director', role: 'Dirección de Tesorería', photo: tesoreria },
-  { name: 'Nombre del director', role: 'Dirección de Acercamiento Social', photo: social },
-  { name: 'Nombre del director', role: 'Dirección de Alianzas', photo: alianzas },
+  { name: 'Nombre del director', role: 'Co-fundadora', photo: cofundador },
+  { name: 'Ing. Luis Rovelo', role: 'CEO', photo: ceo },
+  { name: 'Nombre del director', role: 'Vinculación y Alianzas', photo: vinculacion }
 ]
 
 const Nosotros = () => (
@@ -35,7 +27,7 @@ const Nosotros = () => (
 
     <section className={styles.purpose} aria-label="Misión y visión">
       <article className={styles.purposeCard}>
-        <span>01</span>
+        {/* <span>01</span> */}
         <h2>Misión</h2>
         <p>
           Impulsar proyectos ambientales y sociales que conecten a las personas, fortalezcan
@@ -43,7 +35,7 @@ const Nosotros = () => (
         </p>
       </article>
       <article className={styles.purposeCard}>
-        <span>02</span>
+        {/* <span>02</span> */}
         <h2>Visión</h2>
         <p>
           Ser una organización referente en innovación socioambiental, capaz de convertir la

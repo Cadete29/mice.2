@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { sendFamilyContactMessage } from '../services/authApi'
 import mexico from '../assets/family/mexicoam.jpg'
 import ambi from '../assets/family/ambi.jpg'
 import aliado1 from '../assets/about/hojita.jpg'
@@ -11,6 +12,8 @@ const aliados = [aliado1, aliado2, aliado3, aliado4]
 
 const Familia = () => {
   const [activeAlly, setActiveAlly] = useState(0)
+  const [sending, setSending] = useState(false)
+  const [formStatus, setFormStatus] = useState({ type: '', message: '' })
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -19,6 +22,25 @@ const Familia = () => {
 
     return () => window.clearInterval(interval)
   }, [])
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const form = event.currentTarget
+    setSending(true)
+    setFormStatus({ type: '', message: '' })
+    try {
+      const response = await sendFamilyContactMessage(Object.fromEntries(new FormData(form).entries()))
+      form.reset()
+      setFormStatus({ type: 'success', message: response.message })
+    } catch (error) {
+      setFormStatus({
+        type: 'error',
+        message: error.message || 'No fue posible enviar tus datos. Inténtalo nuevamente.',
+      })
+    } finally {
+      setSending(false)
+    }
+  }
 
   return (
     <main className={styles.page}>
@@ -32,18 +54,48 @@ const Familia = () => {
       <h2>Únete a la revolución ambiental y ayúdanos a restaurar la naturaleza</h2>
       <p>
         Tu voz, tus ideas y tus acciones pueden formar parte de una comunidad que trabaja
-        todos los días por un Chiapas más verde y sostenible.
+        todos los días por un Chiapas más verde y sostenible. Comparte tus datos de contacto
+        y déjanos un mensaje si deseas unirte a la familia MICE-LO.
       </p>
 
-      <form className={styles.messageForm} onSubmit={(event) => event.preventDefault()}>
+      <form className={styles.messageForm} onSubmit={handleSubmit}>
+        <label className={styles.compactLabel} htmlFor="familia-nombre">Nombre</label>
+        <input
+          id="familia-nombre"
+          name="nombre"
+          type="text"
+          autoComplete="name"
+          minLength="2"
+          maxLength="100"
+          required
+        />
+        <label className={styles.compactLabel} htmlFor="familia-correo">Correo electrónico</label>
+        <input
+          id="familia-correo"
+          name="correo"
+          type="email"
+          autoComplete="email"
+          maxLength="254"
+          required
+        />
         <label htmlFor="familia-mensaje">Mándanos un mensaje</label>
         <textarea
           id="familia-mensaje"
           name="mensaje"
           rows="4"
           placeholder="Escribe tu mensaje aquí..."
+          minLength="10"
+          maxLength="5000"
+          required
         />
-        <button type="submit">Enviar</button>
+        <button type="submit" disabled={sending}>{sending ? 'Enviando…' : 'Enviar'}</button>
+        <p
+          className={`${styles.formStatus} ${formStatus.type ? styles[formStatus.type] : ''}`}
+          role="status"
+          aria-live="polite"
+        >
+          {formStatus.message}
+        </p>
       </form>
     </article>
 

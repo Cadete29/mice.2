@@ -74,6 +74,62 @@
   color: #f2f6dc;
 }
 
+.sessionButton {
+  align-items: center;
+  background: #dfe8bd;
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 2px 2px 10px rgba(24, 41, 12, 0.2);
+  color: #294817;
+  cursor: pointer;
+  display: flex;
+  height: 42px;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  transition: width 300ms ease, border-radius 300ms ease, background 300ms ease, transform 120ms ease;
+  width: 42px;
+}
+
+.sessionIcon {
+  align-items: center;
+  display: flex;
+  flex: 0 0 42px;
+  justify-content: center;
+  transition: transform 300ms ease;
+}
+
+.sessionIcon svg { fill: currentColor; height: 17px; width: 17px; }
+.sessionButton:not(.logoutButton) .sessionIcon { transform: rotate(180deg); }
+
+.sessionText {
+  font-size: 0.9rem;
+  font-weight: 800;
+  opacity: 0;
+  padding-right: 15px;
+  white-space: nowrap;
+  width: 0;
+}
+
+.sessionButton:hover,
+.sessionButton:focus-visible {
+  border-radius: 40px;
+  width: 146px;
+}
+
+.sessionButton:hover .sessionText,
+.sessionButton:focus-visible .sessionText {
+  opacity: 1;
+  transition: opacity 180ms ease 80ms;
+  width: auto;
+}
+
+.sessionButton:hover .sessionIcon,
+.sessionButton:focus-visible .sessionIcon { flex-basis: 38px; }
+.sessionButton:active { transform: translate(2px, 2px); }
+.sessionButton.logoutButton { background: #7f9544; color: #fff; }
+
 @media (max-width: 1180px) {
   .headerContainer {
     max-width: 920px;
@@ -161,4 +217,11 @@
   .navMenu li + li::before {
     display: none;
   }
+
+  .sessionButton,
+  .sessionButton:hover,
+  .sessionButton:focus-visible { border-radius: 40px; width: 146px; }
+
+  .sessionButton .sessionIcon { flex-basis: 38px; }
+  .sessionButton .sessionText { opacity: 1; width: auto; }
 }

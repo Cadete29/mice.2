@@ -152,7 +152,7 @@
   left: 18%;
   padding: clamp(1.6rem, 3vw, 2.4rem);
   position: absolute;
-  top: 24%;
+  top: 14%;
   width: clamp(320px, 29vw, 450px);
   z-index: 4;
 }
@@ -185,6 +185,12 @@
   margin-bottom: 0.7rem;
 }
 
+.messageForm .compactLabel {
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+.messageForm input,
 .messageForm textarea {
   background: var(--bg);
   border: 0;
@@ -199,10 +205,22 @@
   width: 100%;
 }
 
+.messageForm input {
+  min-height: 44px;
+  padding: 0.65rem 0.85rem;
+  resize: none;
+}
+
+.messageForm input + label {
+  margin-top: 0.75rem;
+}
+
+.messageForm input:focus,
 .messageForm textarea:focus {
   outline-color: rgba(255, 255, 255, 0.72);
 }
 
+.messageForm input::placeholder,
 .messageForm textarea::placeholder {
   color: #777466;
 }
@@ -226,6 +244,30 @@
   transform: translateY(-2px);
 }
 
+.messageForm button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+  transform: none;
+}
+
+.formStatus {
+  color: #fff;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+  min-height: 1.25rem;
+}
+
+.formStatus.success,
+.formStatus.error {
+  border-radius: 12px;
+  margin-top: 0.75rem;
+  padding: 0.7rem 0.85rem;
+}
+
+.formStatus.success { background: rgb(255 255 255 / 14%); }
+.formStatus.error { background: rgb(119 25 25 / 58%); }
+
 .ambiImage {
   bottom: -1px;
   height: auto;
@@ -238,18 +280,20 @@
 
 @media (max-width: 760px) {
   .page {
+    display: flex;
+    flex-direction: column;
     min-height: 100svh;
   }
 
   .mexicoImage {
-    height: 48%;
-    width: 100%;
+    display: none;
   }
 
   .content {
     left: auto;
     margin-left: 0;
-    padding: 2.5rem 1.25rem 13rem;
+    order: 1;
+    padding: 7rem 1.25rem 2.5rem;
     position: relative;
     right: auto;
     text-align: left;
@@ -260,9 +304,14 @@
     margin-left: 0;
   }
 
+  .allies {
+    transform: translateX(0rem);
+  }
+
   .joinCard {
     left: auto;
-    margin: calc(48svh + 1.5rem) 1rem 0;
+    margin: 1.5rem 1rem 4rem;
+    order: 4;
     position: relative;
     top: auto;
     width: auto;
@@ -273,6 +322,6 @@
   }
 
   .ambiImage {
-    width: clamp(150px, 45vw, 230px);
+    display: none;
   }
 }

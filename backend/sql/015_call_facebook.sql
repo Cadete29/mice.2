@@ -1,0 +1,1 @@
+ALTER TABLE convocatorias ADD COLUMN IF NOT EXISTS facebook VARCHAR(500);

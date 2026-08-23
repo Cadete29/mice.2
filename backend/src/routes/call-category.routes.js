@@ -1,0 +1,11 @@
+const express=require('express');
+const {z}=require('zod');
+const controller=require('../controllers/call-category.controller');
+const authenticate=require('../middlewares/authenticate');
+const authorize=require('../middlewares/authorize');
+const validate=require('../middlewares/validate');
+const router=express.Router();
+router.get('/',controller.list);
+router.post('/',authenticate,authorize('administrador'),validate(z.object({nombre:z.string().trim().min(2).max(60)}).strict()),controller.create);
+router.delete('/:categoryId',authenticate,authorize('administrador'),controller.remove);
+module.exports=router;

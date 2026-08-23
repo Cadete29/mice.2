@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /administracion
+Disallow: /dashboard
+Disallow: /sign-up
+
+Sitemap: https://www.micelo.org/sitemap.xml

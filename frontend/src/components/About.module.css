@@ -162,6 +162,17 @@
   max-width: 720px;
 }
 
+@media (min-width: 921px) and (max-width: 1599px) {
+  .aboutSection { min-height: 100svh; padding-bottom: 5rem; padding-top: 5rem; }
+  .aboutContainer { max-width: min(1040px, calc(100vw - 4rem)); }
+  .aboutGradientCard { height: min(70vh, 700px); padding: 2.4rem; right: 2rem; }
+  .aboutContent { max-width: 650px; transform: translateY(-8vh); }
+  .aboutContent h2 { font-size: clamp(3rem, 5.2vw, 5rem); }
+  .aboutContent p { font-size: clamp(1.1rem, 1.45vw, 1.5rem); max-width: 620px; }
+  .aboutHongito { bottom: -20%; width: clamp(360px, 34vw, 520px); }
+  .aboutHojita { height: 160px; width: 76px; }
+}
+
 @media (max-width: 920px) {
   .aboutGradientCard {
     height: min(68vh, 640px);
@@ -187,38 +198,63 @@
 @media (max-width: 768px) {
   .aboutSection {
     align-items: flex-start;
-    padding: 7rem 1rem 4rem;
+    display: grid;
+    gap: 2.5rem;
+    min-height: 100svh;
+    padding: 7rem 1rem 5rem;
   }
 
   .aboutGradientCard {
-    bottom: 2rem;
+    aspect-ratio: auto;
+    bottom: auto;
     height: auto;
-    min-height: 560px;
-    padding: 1.5rem;
-    right: -120px;
+    justify-self: center;
+    min-height: 0;
+    order: 2;
+    padding: 2rem;
+    position: relative;
+    right: auto;
     top: auto;
-    transform: translate3d(var(--about-parallax-card-x, 0px), var(--about-parallax-card-y, 0px), 0);
-    width: min(86vw, 430px);
+    transform: none;
+    width: min(100%, 520px);
+    z-index: 2;
   }
 
+  .aboutCardContent {
+    height: auto;
+    justify-content: flex-start;
+  }
+
+  .aboutContainer { order: 1; z-index: 2; }
+
   .aboutContent {
+    margin: 0 auto;
     max-width: 100%;
     text-align: center;
     transform: none;
+  }
+
+  .aboutHongito {
+    display: none;
+  }
+
+  .aboutHojita {
+    display: none;
   }
 }
 
 @media (max-width: 560px) {
   .aboutSection {
-    padding-bottom: 32rem;
+    gap: 2rem;
+    padding: 6rem 1rem 4rem;
   }
 
   .aboutGradientCard {
-    bottom: 2rem;
-    left: 1rem;
-    min-height: 520px;
-    right: 1rem;
-    width: auto;
+    border-radius: 24px;
+    left: auto;
+    padding: 1.5rem;
+    right: auto;
+    width: min(100%, 430px);
   }
 
   .aboutCardContent h3 {
@@ -231,7 +267,8 @@
 
   .aboutCardContent li,
   .aboutCardContent p {
-    font-size: 0.82rem;
+    font-size: 0.88rem;
+    line-height: 1.4;
   }
 
   .aboutContent h2 {
@@ -242,4 +279,5 @@
     font-size: 1.05rem;
     line-height: 1.45;
   }
+
 }

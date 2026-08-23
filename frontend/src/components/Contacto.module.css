@@ -255,6 +255,59 @@
   color: #fff6e7;
 }
 
+.submitButton:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.formStatus {
+  border-radius: 10px;
+  color: #fff6e7;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  margin: 0;
+  min-height: 1.35rem;
+}
+
+.formStatus.success,
+.formStatus.error {
+  padding: 0.75rem 1rem;
+}
+
+.formStatus.success {
+  background: rgb(255 246 231 / 14%);
+}
+
+.formStatus.error {
+  background: rgb(139 35 35 / 55%);
+}
+
+@media (min-width: 1101px) and (max-width: 1599px) {
+  .contactoSection { min-height: 100svh; padding-bottom: 5rem; padding-top: 5rem; }
+  .contactoContainer { gap: 4rem; grid-template-columns: minmax(0, 1fr) minmax(440px, 620px); max-width: 1180px; }
+  .contactoHeading h2 { font-size: clamp(3.5rem, 6vw, 5.75rem); }
+  .contactoCard { border-radius: 28px; padding: 2.5rem; }
+  .contactoHojaGrande { height: 400px; width: 396px; }
+  .contactoSolVerde { height: 440px; left: 24%; top: 72%; width: 431px; }
+  .contactoPolen { height: 78px; width: 75px; }
+  .contactoHojaDorada { height: 72px; top: 88%; width: 64px; }
+  .contactoHojaDorada2 { left: auto; right: 2rem; }
+  .contactoHongis { height: clamp(240px, 32vh, 360px); }
+}
+
+@media (min-width: 769px) and (max-width: 1100px) {
+  .contactoSection { align-items: flex-start; min-height: 100svh; padding: 7rem 2rem 5rem; }
+  .contactoContainer { gap: 3rem; grid-template-columns: 1fr; max-width: 760px; }
+  .contactoHeading h2 { font-size: clamp(3.25rem, 9vw, 5.5rem); max-width: 680px; }
+  .contactoCard { border-radius: 26px; justify-self: end; max-width: 680px; padding: 2.5rem; }
+  .contactoHojaGrande { height: 320px; left: -90px; top: -130px; width: 317px; }
+  .contactoSolVerde { height: 350px; left: 5%; top: 78%; width: 343px; }
+  .contactoPolen { height: 72px; width: 69px; }
+  .contactoHojaDorada { height: 68px; top: 86%; width: 60px; }
+  .contactoHojaDorada2 { left: auto; right: 2rem; }
+  .contactoHongis { height: 260px; }
+}
+
 @media (max-width: 768px) {
   .contactoSection {
     align-items: flex-start;
@@ -281,4 +334,15 @@
   .contactoHongis {
     height: 280px;
   }
+}
+
+@media (max-width: 560px) {
+  .contactoSection { padding: 6rem 1rem 3rem; }
+  .contactoContainer { gap: 2rem; }
+  .contactoHeading h2 { font-size: clamp(2.7rem, 14vw, 4rem); }
+  .contactoCard { padding: 1.5rem; }
+  .contactoForm { gap: 1rem; }
+  .formGroup textarea { min-height: 110px; }
+  .contactoPolen { height: 65px; left: -24px; width: 62px; }
+  .contactoHojaDorada2 { left: auto; right: 1rem; }
 }

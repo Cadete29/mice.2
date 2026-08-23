@@ -1,0 +1,68 @@
+name: Calidad y seguridad
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: mice_lo_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      NODE_ENV: development
+      DB_HOST: 127.0.0.1
+      DB_PORT: 5432
+      DB_NAME: mice_lo_test
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_SSL: 'false'
+      JWT_ACCESS_SECRET: ci-access-secret-with-more-than-thirty-two-characters
+      FRONTEND_URL: http://127.0.0.1:4173
+      EMAIL_ENABLED: 'false'
+      COOKIE_SECURE: 'false'
+      ALLOW_DATABASE_RESET_FOR_TESTS: mice_lo_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - run: npm ci
+      - run: npm run db:migrate
+      - run: npm run test:all
+      - run: npm audit --omit=dev --audit-level=high
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - run: npm audit --omit=dev --audit-level=high

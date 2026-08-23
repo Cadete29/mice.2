@@ -1,16 +1,112 @@
-# React + Vite
+# Frontend MICE-LO
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Cliente web React 19 construido con Vite 8. Consume la API MICE-LO mediante `src/services/authApi.js` y mantiene estilos por componente con CSS Modules.
 
-Currently, two official plugins are available:
+## Inicio
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+copy .env.example .env
+npm run dev
+```
 
-## React Compiler
+Variable disponible:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```env
+VITE_API_URL=http://localhost:3000/api
+```
 
-## Expanding the ESLint configuration
+## Scripts
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run dev       # servidor de desarrollo
+npm run build     # salida de producción en dist/
+npm run preview   # vista previa de dist/
+npm run lint      # ESLint
+npm run test:e2e  # Playwright
+```
+
+## Organización del código
+
+```text
+src/
+├── assets/       # fotografías y gráficos procesados por Vite
+├── components/   # secciones, tarjetas, formularios y administración
+├── pages/        # vistas asociadas a rutas
+├── services/     # cliente HTTP y ciclo de sesión
+├── utils/        # autenticación requerida y formato de texto
+├── App.jsx       # resolución de rutas
+├── index.css     # variables y base visual
+└── main.jsx
+```
+
+## Navegación
+
+No se usa React Router. `App.jsx` compara `window.location.pathname`. Las rutas de detalle aceptan UUID: `/proyectos/:uuid`, `/convocatorias/:uuid` y `/perfiles/:uuid`.
+
+El hosting debe devolver `index.html` para rutas web desconocidas. `/administracion` y `/dashboard` verifican sesión y rol, y redirigen a `/sign-up` cuando no corresponde el acceso.
+
+## Cliente HTTP y sesiones
+
+`src/services/authApi.js` centraliza las solicitudes:
+
+- Guarda access token y token CSRF en `sessionStorage`.
+- Envía el refresh token sólo como cookie con `credentials: "include"`.
+- Añade `Authorization: Bearer` a solicitudes autenticadas.
+- Ante un `401`, intenta una renovación y repite la solicitud una vez.
+- Comparte la promesa de renovación para evitar refresh simultáneos.
+- Limpia la sesión local después de logout o revocación.
+- Uniforma errores con `ApiError` (`message`, `code`, `status`).
+
+## Áreas funcionales
+
+### Sitio público
+
+- Inicio con Hero, About, proyectos destacados y Contacto.
+- Catálogo y detalle de proyectos desde la API.
+- Catálogo y detalle de convocatorias activas.
+- Perfiles públicos con descripción, misión, visión, objetivos, redes y proyectos.
+- Páginas institucionales, legales, aliados y donativos.
+- Contacto general y Familia conectados al servicio de correo.
+
+### Cuenta de usuario
+
+`SignUp.jsx` coordina registro, login, MFA, confirmación y recuperación. `UserDashboard.jsx` permite consultar y publicar proyectos, configurar redes, revisar postulaciones, editar el perfil, subir fotografía y gestionar MFA y sesiones.
+
+Los proyectos admiten hasta seis imágenes JPEG, PNG o WebP de máximo 3 MB cada una. La fotografía de perfil admite esos formatos hasta 2 MB.
+
+### Administración
+
+`Administration.jsx` integra usuarios, roles, estado de cuentas, consentimientos, moderación de proyectos, convocatorias, postulaciones, categorías, participantes de playa y administración/analítica de jornadas.
+
+### Jornadas de playa
+
+`RegistroPlayas.jsx` comprueba que exista una jornada abierta. Solicita identidad, CURP, fecha de nacimiento, teléfono, transporte y tres consentimientos obligatorios.
+
+`AdminBeachAnalytics.jsx` muestra total, transporte, edad media, grupos de edad, países telefónicos y registros de siete días. Actualmente descarga registros nominales y calcula métricas en cliente; debe migrarse a agregaciones del backend.
+
+## SEO
+
+Vite copia estos archivos de `public/` a la raíz de `dist/`:
+
+- `sitemap.xml`: rutas públicas estables de `https://www.micelo.org`.
+- `robots.txt`: referencia el sitemap y excluye `/administracion`, `/dashboard` y `/sign-up`.
+
+Las rutas con UUID requieren generación dinámica o durante el build.
+
+## Accesibilidad y responsive
+
+Hay navegación móvil, cuadrículas adaptativas, etiquetas accesibles, imágenes decorativas ocultas cuando corresponde, soporte parcial de `prefers-reduced-motion` y diseño de impresión para participantes de playa. Se recomienda revisar 390, 768, 1024, 1440 y 1920 px y el recorrido por teclado.
+
+## Pruebas E2E
+
+`e2e/auth.spec.js` cubre login con MFA, registro cuando falla SMTP y limpieza del token de verificación de la URL. La CI instala Chromium antes de ejecutar Playwright.
+
+## Pendientes
+
+- Integrar Mercado Pago real.
+- Añadir metadata por ruta: título, descripción, canonical y Open Graph.
+- Generar sitemap para contenido dinámico.
+- Sustituir contenido e imágenes provisionales y optimizar recursos pesados.
+- Considerar un router si continúa creciendo el número de vistas.
+- Ampliar pruebas E2E a proyectos, convocatorias y administración.

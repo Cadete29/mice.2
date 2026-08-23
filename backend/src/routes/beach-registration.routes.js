@@ -1,0 +1,15 @@
+const express=require('express');
+const rateLimit=require('express-rate-limit');
+const controller=require('../controllers/beach-registration.controller');
+const validate=require('../middlewares/validate');
+const authenticate=require('../middlewares/authenticate');
+const authorize=require('../middlewares/authorize');
+const {beachRegistrationSchema}=require('../models/beach-registration.schemas');
+const router=express.Router(),limiter=rateLimit({windowMs:15*60*1000,limit:5,standardHeaders:'draft-8',legacyHeaders:false,message:{error:{code:'TOO_MANY_REQUESTS',message:'Has enviado demasiados registros. Inténtalo más tarde.'}}});
+router.post('/',limiter,validate(beachRegistrationSchema),controller.create);
+router.get('/active',controller.active);
+router.get('/admin',authenticate,authorize('administrador'),controller.list);
+router.get('/admin/events',authenticate,authorize('administrador'),controller.events);
+router.post('/admin/events',authenticate,authorize('administrador'),controller.createEvent);
+router.patch('/admin/events/:id/status',authenticate,authorize('administrador'),controller.status);
+module.exports=router;

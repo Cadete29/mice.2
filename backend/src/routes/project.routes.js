@@ -1,0 +1,16 @@
+const express = require('express');
+const controller = require('../controllers/project.controller');
+const authenticate = require('../middlewares/authenticate');
+const validate = require('../middlewares/validate');
+const { projectSchema, projectUpdateSchema, socialProfileSchema } = require('../models/project.schemas');
+const router = express.Router();
+router.get('/', controller.listPublic);
+router.get('/mine', authenticate, controller.listOwn);
+router.post('/', authenticate, validate(projectSchema), controller.create);
+router.get('/profile/social', authenticate, controller.getProfile);
+router.put('/profile/social', authenticate, validate(socialProfileSchema), controller.saveProfile);
+router.get('/profiles/:userId', controller.getPublicAuthorProfile);
+router.put('/:projectId', authenticate, validate(projectUpdateSchema), controller.updateOwn);
+router.delete('/:projectId', authenticate, controller.deleteOwn);
+router.get('/:projectId', controller.getPublic);
+module.exports = router;

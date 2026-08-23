@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { getActiveBeachEvent } from '../services/authApi'
 import esfera from '../assets/hero/esfera.jpg'
 import esfera2 from '../assets/hero/esfera2.jpg'
 import fondo1 from '../assets/hero/fondo1.jpg'
@@ -10,6 +11,11 @@ const cx = (...classNames) => classNames.join(' ')
 
 const Hero = () => {
   const heroRef = useRef(null)
+  const [beachRegistrationOpen, setBeachRegistrationOpen] = useState(false)
+
+  useEffect(() => {
+    getActiveBeachEvent().then(({event}) => setBeachRegistrationOpen(Boolean(event))).catch(() => setBeachRegistrationOpen(false))
+  }, [])
 
   useEffect(() => {
     const hero = heroRef.current
@@ -66,7 +72,7 @@ const Hero = () => {
           </p>
           <div className={styles.heroButtons}>
             <a href="#features">Conoce los proyectos</a>
-            <a href="/registro-limpieza-playas">Registro de Limpieza de Playas</a>
+            {beachRegistrationOpen&&<a href="/registro-limpieza-playas">Registro de Limpieza de Playas</a>}
             <a href="/donativos">Donativos</a>
           </div>
         </div>

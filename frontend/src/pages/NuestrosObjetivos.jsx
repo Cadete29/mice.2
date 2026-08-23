@@ -4,33 +4,33 @@ import pie from '../assets/objets/pie.jpg'
 const objectives = [
   {
     number: '01',
-    title: 'Regenerar ecosistemas',
-    description: 'Restaurar espacios naturales mediante proyectos comunitarios, ciencia y prácticas sostenibles.',
+    title: 'Desarrollar soluciones innovadoras',
+    description: 'Investigar y crear tecnologías y biomateriales que ayuden a regenerar ecosistemas, restaurar suelos y enfrentar desafíos ambientales.',
   },
   {
     number: '02',
-    title: 'Fortalecer comunidades',
-    description: 'Impulsar la participación local y brindar herramientas para construir comunidades resilientes.',
+    title: 'Impulsar la restauración y regeneración de ecosistemas',
+    description: 'Impulsar la restauración y regeneración de ecosistemas',
   },
   {
     number: '03',
-    title: 'Promover la innovación',
-    description: 'Conectar tecnología, conocimiento tradicional e investigación para resolver retos ambientales.',
+    title: 'Fortalecer la educación ambiental ',
+    description: 'Desarrollar programas educativos, talleres y experiencias que acerquen el conocimiento ambiental a escuelas, comunidades y juventudes.',
   },
   {
     number: '04',
-    title: 'Crear alianzas',
-    description: 'Vincular personas, organizaciones e instituciones comprometidas con el futuro de Chiapas.',
+    title: 'Promover la participación comunitaria en la protección del medio ambiente',
+    description: 'Promover la participación comunitaria en la protección del medio ambiente',
   },
   {
     number: '05',
-    title: 'Educar para transformar',
-    description: 'Compartir conocimientos y experiencias que inspiren una cultura de cuidado ambiental y acción colectiva.',
+    title: 'Desarrollar investigación aplicada para entender los ecosistemas',
+    description: 'Desarrollar investigación aplicada para entender los ecosistemas',
   },
   {
     number: '06',
-    title: 'Impulsar la economía sostenible',
-    description: 'Promover iniciativas productivas responsables que generen oportunidades sin comprometer los recursos naturales.',
+    title: 'Construir alianzas para generar impacto ambiental y social',
+    description: 'Colaborar con comunidades, empresas, instituciones y organizaciones para implementar soluciones sostenibles a mayor escala.',
   },
 ]
 
@@ -50,7 +50,7 @@ const NuestrosObjetivos = () => (
     <section className={styles.objectives} aria-label="Objetivos de la organización">
       {objectives.map((objective) => (
         <article className={styles.objectiveCard} key={objective.number}>
-          <span>{objective.number}</span>
+          {/* <span>{objective.number}</span> */}
           <h2>{objective.title}</h2>
           <p>{objective.description}</p>
         </article>

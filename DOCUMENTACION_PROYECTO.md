@@ -1,451 +1,227 @@
-# Documentación del proyecto MICE-LO
+# Documentación técnica y funcional de MICE-LO
 
-## 1. Descripción general
+**Corte de documentación:** 22 de agosto de 2026.
 
-MICE-LO es un sitio web institucional y ambiental enfocado en proyectos, convocatorias, organización interna y objetivos socioambientales en Chiapas. La interfaz utiliza una identidad visual orgánica basada en tonos verdes, fondo crema, fotografías de naturaleza, tarjetas y efectos de profundidad.
+## 1. Propósito y alcance
 
-El proyecto está construido como una aplicación frontend con React y Vite. No utiliza backend ni base de datos actualmente; la información se encuentra definida directamente en los componentes JSX.
+MICE-LO es una plataforma socioambiental para publicar proyectos, conectar participantes, difundir convocatorias y operar actividades ambientales. Combina un sitio institucional con cuentas, perfiles públicos, paneles de gestión y una API persistente.
 
-## 2. Tecnologías
+La arquitectura anterior, limitada a contenido JSX y formularios simulados, fue reemplazada por una solución full stack. PostgreSQL es ahora la fuente de verdad para usuarios, sesiones, proyectos, convocatorias, postulaciones, consentimientos y jornadas de playa.
 
-- React 19.
-- React DOM 19.
-- Vite 8.
-- CSS Modules para estilos encapsulados.
-- CSS global para variables y estilos base.
-- Leaflet para el mapa de proyectos.
-- ESLint para análisis estático.
-- JavaScript con JSX.
-
-## 3. Ubicación y estructura
-
-El frontend está ubicado en `frontend/`.
+## 2. Arquitectura actual
 
 ```text
-mice.2/
-├── DOCUMENTACION_PROYECTO.md
-└── frontend/
-    ├── public/
-    ├── src/
-    │   ├── assets/
-    │   │   ├── about/
-    │   │   ├── contacto/
-    │   │   ├── hero/
-    │   │   ├── objects/
-    │   │   └── objets/
-    │   ├── components/
-    │   ├── pages/
-    │   ├── App.jsx
-    │   ├── App.css
-    │   ├── index.css
-    │   └── main.jsx
-    ├── index.html
-    ├── package.json
-    └── vite.config.js
+React/Vite
+  ├─ páginas públicas
+  ├─ dashboard de usuario
+  ├─ administración
+  └─ authApi.js
+          │ JSON + Bearer + cookies
+          ▼
+Express
+  ├─ routes       contrato HTTP
+  ├─ controllers  adaptación HTTP
+  ├─ services     seguridad y reglas de negocio
+  ├─ models       SQL y mapeo de entidades
+  └─ middlewares  auth, roles, validación y errores
+          │
+          ├─ PostgreSQL
+          └─ SMTP (Gmail o Namecheap)
 ```
 
-> Nota: existen dos carpetas de recursos llamadas `objects` y `objets`. La imagen panorámica `pie.jpg` se encuentra en `assets/objets/`.
+El frontend es una SPA sin React Router. El backend expone `/api`, aplica Helmet, CORS restringido, JSON de hasta 18 MB, cookies, errores uniformes y desactiva `x-powered-by`.
 
-## 4. Instalación y ejecución
+## 3. Módulos implementados
 
-Requisitos:
+### Identidad y acceso
 
-- Node.js compatible con Vite 8.
-- npm.
+- Registro con nombres, correo normalizado, contraseña Argon2id y aceptación legal obligatoria.
+- Confirmación de correo mediante token aleatorio de un solo uso almacenado como SHA-256.
+- Login bloqueado hasta confirmar el correo.
+- Protección contra intentos fallidos y bloqueo temporal.
+- Access token JWT corto y refresh token opaco rotatorio.
+- Refresh token en cookie `HttpOnly`; token CSRF asociado a la sesión.
+- Detección de reutilización que revoca la familia completa de sesiones.
+- Consulta, revocación individual y cierre de todas las sesiones.
+- Recuperación de contraseña con token de un solo uso y expiración de 30 minutos.
+- MFA TOTP, prevención de reutilización de ventana y códigos de recuperación.
+- Roles `usuario` y `administrador`, validados nuevamente contra PostgreSQL.
 
-Desde la carpeta `frontend/`:
+### Perfiles y proyectos
 
-```bash
-npm install
-npm run dev
-```
-
-Vite mostrará la dirección local, normalmente `http://localhost:5173`.
-
-Comandos disponibles:
-
-```bash
-npm run dev      # servidor de desarrollo
-npm run build    # compilación para producción
-npm run lint     # revisión con ESLint
-npm run preview  # vista previa del build
-```
-
-La compilación se genera en `frontend/dist/`.
-
-## 5. Entrada y navegación
-
-`src/main.jsx` monta `<App />` en el elemento `#root`.
-
-`src/App.jsx` mantiene el Header en todas las vistas y decide qué página mostrar mediante `window.location.pathname`. El proyecto no usa React Router.
-
-| Ruta | Vista | Footer |
-|---|---|---|
-| `/` | Inicio: Hero, About, Objetivos y Contacto | Sí |
-| `/chiapas-por-el-clima` | Catálogo comunitario de proyectos | Sí |
-| `/convocatorias` | Catálogo de convocatorias | Sí |
-| `/nosotros` | Misión, visión y equipo directivo | Sí |
-| `/nuestros-objetivos` | Seis objetivos institucionales | No |
-| `/familia` | Red de aliados, proveedores y formulario de contacto | Sí |
-| `/sign-up` | Inicio de sesión, registro y recuperación de contraseña | Sí |
-| `/registro-limpieza-playas` | Formulario de participación en limpieza de playas | Sí |
-| `/donativos` | Selección de destino, monto y acceso a Mercado Pago | Sí |
-
-Para producción, el servidor debe redirigir las rutas desconocidas hacia `index.html`, ya que la selección de vistas ocurre en el navegador.
-
-## 6. Componentes compartidos
-
-### Header
-
-Archivos:
-
-- `src/components/Header.jsx`
-- `src/components/Header.module.css`
-
-Características:
-
-- Posición fija en la parte superior.
-- Logo con enlace al inicio.
-- Menú en forma de cápsula verde.
-- Menú hamburguesa en pantallas pequeñas.
-- Enlaces a páginas y secciones internas.
-
-Al ser fijo, las páginas deben reservar espacio superior suficiente para evitar que el contenido quede detrás del Header.
-
-### Footer
-
-Archivos:
-
-- `src/components/Footer.jsx`
-- `src/components/Footer.module.css`
-
-Incluye identidad de MICE-LO, navegación, datos de contacto, redes sociales y enlaces legales. Se renderiza globalmente excepto en `/nuestros-objetivos`.
-
-### Hero
-
-Archivos:
-
-- `src/components/Hero.jsx`
-- `src/components/Hero.module.css`
-
-Sección principal de inicio con titular, botones e imágenes superpuestas. Usa JavaScript y variables CSS para crear parallax durante el scroll. Respeta `prefers-reduced-motion`.
-
-### About
-
-Archivos:
-
-- `src/components/About.jsx`
-- `src/components/About.module.css`
-
-Presenta la organización, sus actividades y su forma de trabajo. Incluye imágenes decorativas y parallax.
-
-### Objetivos del inicio
-
-Archivos:
-
-- `src/components/Objetivos.jsx`
-- `src/components/Objetivos.css`
-
-Contiene proyectos activos y un mapa Leaflet de Chiapas. Los proyectos están definidos en el arreglo `proyectosActivos`, con nombre, ubicación, coordenadas y descripción.
-
-### Contacto
-
-Archivos:
-
-- `src/components/Contacto.jsx`
-- `src/components/Contacto.module.css`
-
-Incluye formulario, elementos botánicos y animaciones parallax. Actualmente `handleSubmit` evita la recarga, pero no envía información a un servidor.
-
-## 7. Páginas
-
-### Chiapas por el Clima
-
-Archivos:
-
-- `src/pages/ChiapasPorElClima.jsx`
-- `src/pages/ChiapasPorElClima.module.css`
-
-Muestra un catálogo de proyectos de diferentes personas. Cada tarjeta contiene:
-
-- Miniatura.
-- Título.
-- Descripción breve.
-- Creador.
-- Invitación para unirse.
-- Correo.
-- WhatsApp con SVG.
-- Instagram, Facebook, X, TikTok, YouTube y LinkedIn con SVG.
-
-Los datos se editan en el arreglo `projects`. Los números de WhatsApp deben incluir código de país sin `+`, espacios ni guiones.
-
-Ejemplo:
-
-```js
-{
-  image: bosque,
-  title: 'Nombre del proyecto',
-  description: 'Descripción breve.',
-  author: 'Nombre de la persona',
-  email: 'correo@ejemplo.com',
-  whatsapp: '529611234567',
-  social: 'nombredeusuario',
-}
-```
-
-En escritorio se muestran cuatro tarjetas por fila. La cuadrícula se adapta a tres, dos o una columna según el ancho disponible.
+- Perfil con fotografía, descripción, misión, visión y objetivos.
+- Redes sociales configurables y controles de visibilidad independientes.
+- Perfil público por UUID con proyectos publicados.
+- CRUD de proyectos propios.
+- Galería de una a seis imágenes con selección de principal.
+- Categorías administrables; no se permite eliminar una categoría en uso.
+- Moderación administrativa y eliminación de proyectos.
 
 ### Convocatorias
 
-Archivo:
+- Convocatorias internas y externas.
+- Galerías de hasta seis imágenes y categoría independiente de proyectos.
+- Publicación, edición, visibilidad y eliminación desde administración.
+- Las externas enlazan al sitio de postulación.
+- Las internas registran una sola postulación por usuario y conservan los contactos autorizados en ese momento.
+- Estados de postulación: pendiente, aprobada o rechazada.
+
+### Comunicación
+
+- Formulario general de contacto.
+- Formulario para integrarse a la red Familia.
+- Correos de verificación, recuperación, confirmación de registro de playa y avisos administrativos.
+- Plantillas HTML y texto plano.
+- SMTP seleccionable por entorno entre Gmail y Namecheap, con timeouts configurables.
 
-- `src/pages/Convocatorias.jsx`
+### Limpieza de playas
 
-Reutiliza los estilos del catálogo de Chiapas por el Clima. Sus registros se encuentran en el arreglo `convocatorias`. Cada tarjeta incluye imagen, descripción, organización convocante, correo, WhatsApp y redes sociales.
+- Jornadas numeradas con estado abierto/cerrado; sólo puede haber una abierta.
+- El Hero y el formulario consultan la jornada activa.
+- Registro con nombre, nacimiento, CURP, país/lada/teléfono, correo y necesidad de transporte.
+- Consentimientos obligatorios de privacidad, uso de imagen y deslinde.
+- Panel nominal restringido a administradores.
+- Selección de jornadas históricas, apertura, cierre y creación de la siguiente jornada.
+- Analítica inicial: participantes, transporte, edad promedio, distribución etaria, país telefónico y tendencia de siete días.
+- Vista imprimible de operación.
 
-### Nosotros
+La analítica todavía se calcula en React a partir del conjunto nominal. Por privacidad y escalabilidad debe convertirse en un endpoint SQL agregado.
 
-Archivos:
+### Administración
 
-- `src/pages/Nosotros.jsx`
-- `src/pages/Nosotros.module.css`
+- Resumen operativo.
+- Listado paginado y búsqueda de usuarios.
+- Cambio de rol y estado, con restricciones para impedir acciones administrativas peligrosas sobre la propia cuenta.
+- Evidencia de consentimientos por usuario.
+- Proyectos, categorías, convocatorias, postulaciones y jornadas de playa.
+
+## 4. Rutas del frontend
+
+| Ruta | Acceso | Vista |
+|---|---|---|
+| `/` | Público | Inicio |
+| `/chiapas-por-el-clima` | Público | Proyectos |
+| `/proyectos/:uuid` | Público | Detalle de proyecto |
+| `/convocatorias` | Público | Convocatorias activas |
+| `/convocatorias/:uuid` | Público | Detalle/postulación |
+| `/perfiles/:uuid` | Público | Perfil comunitario |
+| `/nosotros` | Público | Organización y equipo |
+| `/nuestros-objetivos` | Público | Objetivos institucionales; sin Footer |
+| `/familia` | Público | Aliados y contacto |
+| `/donativos` | Público | Flujo visual de donación |
+| `/registro-limpieza-playas` | Público condicionado | Registro de jornada activa |
+| `/sign-up` | Público | Acceso, alta, verificación y recuperación |
+| `/dashboard` | Usuario | Gestión personal |
+| `/administracion` | Administrador | Gestión global |
+| `/seguridad` | Público | Información de seguridad |
+| rutas legales | Público | Términos y avisos |
+
+Las rutas desconocidas terminan mostrando el inicio porque `App.jsx` usa una cadena condicional. El hosting debe resolver la SPA y conviene añadir posteriormente una vista 404 explícita.
+
+## 5. Datos y migraciones
 
-Incluye:
+Las migraciones viven en `backend/sql/`, se ejecutan por nombre y se registran con SHA-256 en `schema_migrations`. Una migración aplicada no debe editarse; cualquier cambio requiere un archivo nuevo.
+
+| Migraciones | Alcance |
+|---|---|
+| `001`–`007` | usuarios, sesiones, MFA, recuperación, verificación, CSRF y evidencia legal |
+| `008` | perfiles sociales y proyectos |
+| `009` | convocatorias y postulaciones |
+| `010`–`014` | categorías, fotografía/detalles del perfil y redes adicionales |
+| `015_project_gallery` | galería de proyectos |
+| `015_call_facebook`–`016` | Facebook, tipos, categorías y galería de convocatorias |
+| `017`–`018` | registros y jornadas de limpieza de playas |
+
+Entidades principales: `usuarios`, `sesiones`, `codigos_recuperacion_mfa`, `tokens_recuperacion_password`, `tokens_verificacion_correo`, `consentimientos_legales`, `perfiles_sociales`, `proyectos`, `proyecto_imagenes`, `categorias`, `convocatorias`, `convocatoria_imagenes`, `categorias_convocatorias`, `postulaciones_convocatoria`, `registros_limpieza_playas` y `jornadas_limpieza_playas`.
+
+## 6. Seguridad y privacidad
+
+- Validación estricta con Zod y rechazo de campos inesperados en entradas sensibles.
+- Consultas parametrizadas mediante `pg`.
+- Argon2id para contraseñas.
+- Tokens de verificación/recuperación almacenados sólo como hash.
+- Secreto MFA cifrado; la clave debe ser distinta del secreto JWT en producción.
+- Cookies seguras y HTTPS obligatorios en producción.
+- Rate limiting en autenticación, contacto y registros de playa.
+- `Cache-Control: no-store` en autenticación.
+- Registro de versión, hashes documentales, IP, dispositivo y evidencia HMAC de consentimiento.
+- Limpieza periódica coordinada con advisory lock de PostgreSQL.
+
+Los datos de CURP, teléfono, nacimiento e IP requieren acceso mínimo, retención definida y revisión jurídica antes de producción.
+
+## 7. Calidad
+
+### Backend
+
+Las pruebas unitarias cubren esquemas de autenticación, proyectos, convocatorias, contacto y playa; autorización; fotos; sesiones; MFA y exposición segura de tokens de desarrollo.
+
+La integración usa PostgreSQL real y comprueba registro legal, confirmación, cookies, CSRF, rotación/reutilización, revocación inmediata, RBAC y MFA. Sólo permite limpieza cuando la base contiene `test`/`testing` como segmento y `ALLOW_DATABASE_RESET_FOR_TESTS` coincide con `DB_NAME`.
+
+### Frontend
+
+Playwright cubre login MFA, error SMTP durante registro y limpieza del token de verificación de la URL. ESLint y el build forman parte del control automático.
 
-- Presentación institucional.
-- Botón hacia `/nuestros-objetivos`.
-- Misión.
-- Visión.
-- Equipo de dirección.
+### Integración continua
 
-El equipo se configura mediante el arreglo `team`. Está organizado en una sola línea con el CEO en el centro:
+`.github/workflows/quality.yml` ejecuta en push y pull request:
 
-1. Dirección de Logística.
-2. Dirección de Tecnología.
-3. Dirección de Administración.
-4. CEO.
-5. Dirección de Tesorería.
-6. Dirección de Acercamiento Social.
-7. Dirección de Alianzas.
+- PostgreSQL 17, migraciones, pruebas backend y auditoría de dependencias.
+- Lint, build, Chromium, E2E y auditoría frontend.
 
-Las fotografías usan formato vertical `3:4`. En móviles, la fila permite desplazamiento horizontal.
+## 8. SEO y despliegue
 
-Para sustituir una fotografía:
+`frontend/public/sitemap.xml` enumera rutas públicas estáticas del dominio `https://www.micelo.org`. `robots.txt` enlaza el mapa y excluye cuenta/administración.
 
-1. Copiar la imagen a una carpeta dentro de `src/assets/`.
-2. Importarla en `Nosotros.jsx`.
-3. Asignarla a la propiedad `photo` del perfil correspondiente.
-4. Cambiar `name` por el nombre real.
+Pendiente:
 
-### Nuestros Objetivos
+- Metadata y canonical específicos por página.
+- Sitemap dinámico para proyectos, convocatorias y perfiles.
+- Enviar el mapa a Google Search Console tras desplegarlo.
+- Verificar que `www.micelo.org` sea el dominio canónico definitivo y redirigir cualquier variante.
 
-Archivos:
+## 9. Avances desde la documentación anterior
 
-- `src/pages/NuestrosObjetivos.jsx`
-- `src/pages/NuestrosObjetivos.module.css`
+La última documentación describía una maqueta frontend. Desde entonces se incorporaron:
 
-La vista presenta seis objetivos en una cuadrícula compacta de tres columnas por dos filas en escritorio. Todas las tarjetas tienen altura uniforme y fondo blanco sólido.
+1. API Express y PostgreSQL con migraciones verificables.
+2. Autenticación completa, correo, sesiones rotatorias, CSRF, MFA y RBAC.
+3. Consentimientos legales versionados y evidencia auditable.
+4. Dashboard de usuario, perfil público, fotografía y redes.
+5. Proyectos persistentes, galerías, categorías y moderación.
+6. Convocatorias persistentes, tipos interno/externo, galerías, categorías y postulaciones.
+7. Administración de usuarios, contenido y consentimientos.
+8. Formularios de Contacto y Familia conectados a correo.
+9. Registro persistente de playa y administración de jornadas históricas.
+10. Analítica operativa e impresión de participantes.
+11. Suites unitarias, integración, E2E y pipeline de CI.
+12. `sitemap.xml` y `robots.txt` para el inicio del trabajo SEO.
+13. Renovación visual responsive de páginas, navegación y componentes administrativos.
 
-Los objetivos se editan en el arreglo `objectives`:
+## 10. Trabajo pendiente priorizado
 
-```js
-{
-  number: '01',
-  title: 'Título del objetivo',
-  description: 'Descripción del objetivo.',
-}
-```
+### Antes de producción
 
-La imagen `src/assets/objets/pie.jpg` aparece en la parte inferior, ocupa más que el ancho del viewport y sube detrás de la segunda fila aproximadamente una cuarta parte de la altura de una tarjeta. Las tarjetas permanecen por encima mediante `z-index`.
+1. Dictamen y cierre de documentos legales; configurar hashes definitivos.
+2. Infraestructura HTTPS, secretos, cookies seguras, proxy y copias de seguridad.
+3. Activar y verificar SMTP real.
+4. Sustituir datos, imágenes, cuentas y enlaces provisionales.
+5. Integrar pagos reales si se habilitarán donativos.
+6. Ejecutar CI completa y pruebas manuales responsive/accesibilidad.
 
-Esta es la única página que no muestra Footer.
+### Siguiente evolución técnica
 
-### Familia
+1. Endpoint agregado para analítica de playa sin exponer datos nominales.
+2. Modelo de resultados por jornada: asistencia, residuos, ubicación, horas e impacto.
+3. Metadata SEO por vista y sitemap dinámico.
+4. Políticas de retención, exportación y eliminación de datos personales.
+5. Pruebas de proyectos, convocatorias y panel administrativo.
+6. Optimización de imágenes y eventual adopción de router.
 
-Archivos:
+## 11. Convenciones de mantenimiento
 
-- `src/pages/Familia.jsx`
-- `src/pages/Familia.module.css`
-
-La página `/familia` presenta la red de aliados de MICE-LO. Su composición incluye:
-
-- `mexicoam.jpg` en el lado izquierdo, conservando su proporción original.
-- Tarjeta con gradiente verde superpuesta sobre la imagen.
-- Formulario visual para enviar un mensaje.
-- Título “Quieres ser parte de nuestra red de aliados?”.
-- `ambi.jpg` anclada en la esquina inferior derecha.
-- Carrusel de aliados y proveedores.
-
-El carrusel cambia automáticamente cada dos segundos y aplica una transición de desvanecido de entrada y salida. El visor es cuadrado, no tiene fondo y utiliza `object-fit: contain`, por lo que está preparado para logotipos PNG y SVG con transparencia.
-
-Las imágenes provisionales del carrusel se configuran en el arreglo `aliados` de `Familia.jsx`. Los indicadores de posición se encuentran comentados temporalmente en JSX.
-
-El formulario de mensaje evita la recarga de la página, pero todavía no envía información a un servidor.
-
-### Sign-up
-
-Archivos:
-
-- `src/pages/SignUp.jsx`
-- `src/pages/SignUp.module.css`
-
-La ruta `/sign-up` reúne tres estados de autenticación dentro de una misma interfaz:
-
-- Inicio de sesión.
-- Registro de usuario.
-- Recuperación de contraseña.
-
-El estado local `view` determina qué formulario se muestra. La interfaz incluye validaciones HTML básicas, campos de contraseña, confirmación, aceptación de términos y navegación entre estados.
-
-Actualmente no existe un servicio de autenticación. Los formularios son visuales y deben conectarse posteriormente a un backend o proveedor de identidad.
-
-### Registro de Limpieza de Playas
-
-Archivos:
-
-- `src/pages/RegistroPlayas.jsx`
-- `src/pages/RegistroPlayas.module.css`
-
-La página `/registro-limpieza-playas` se abre desde el botón correspondiente del Hero. Está distribuida en dos columnas:
-
-- Carrusel fotográfico en el lado izquierdo.
-- Información, recomendaciones y formulario en el lado derecho.
-
-El carrusel utiliza estas imágenes de `src/assets/limpieza de playas/`:
-
-- `playalim.jpeg`.
-- `playalim2.jpeg`.
-- `playalim3.jpeg`.
-- `playalim4.jpeg`.
-
-Las fotografías cambian cada dos segundos con desvanecido y un ligero efecto de escala. En escritorio, el panel permanece visible mediante `position: sticky`; en pantallas pequeñas se coloca encima del formulario.
-
-El formulario solicita nombre, apellidos, correo, WhatsApp, municipio, edad, jornada, organización, comentarios y aceptación del aviso de privacidad. Todavía no almacena ni envía datos.
-
-### Donativos
-
-Archivos:
-
-- `src/pages/Donativos.jsx`
-- `src/pages/Donativos.module.css`
-
-La ruta `/donativos` se abre desde el botón “Donativos” del Hero. Utiliza el fondo crema global y una composición dividida entre el título y el flujo de donación.
-
-El primer paso muestra cuatro destinos en una cuadrícula 2 × 2:
-
-- Restauración de ecosistemas.
-- Limpieza de playas.
-- Educación ambiental.
-- Proyectos comunitarios.
-
-Las tarjetas usan el gradiente `linear-gradient(135deg, #3d5121, #7f9544)` y un acabado skeuomórfico con iluminación direccional, reflejo, textura sutil, sombras exteriores y profundidad interior.
-
-Al seleccionar una tarjeta:
-
-1. Desaparece la cuadrícula.
-2. Se muestra el destino elegido.
-3. Aparece el campo para introducir la cantidad en MXN.
-4. Se ofrecen cantidades rápidas de $100, $250, $500 y $1,000.
-5. El usuario puede volver y cambiar el destino.
-6. El botón “Donar” dirige a Mercado Pago.
-
-El estado `selectedDestination` controla el paso visible y `amount` almacena temporalmente la cantidad. La imagen decorativa `src/assets/donativo/donar1.jpg` se muestra como una esfera en la zona inferior izquierda.
-
-La URL actual dirige a la página general de Mercado Pago. Para procesar pagos reales, conservar el monto y relacionar la transacción con el destino seleccionado es necesario integrar Mercado Pago Checkout Pro o utilizar enlaces de pago específicos.
-
-## 8. Sistema visual
-
-Las variables globales se encuentran en `src/index.css`:
-
-```css
-:root {
-  --bg: #fff6e7;
-  --green-bg: #39501f;
-  --green-bg-letters: #39501f;
-  --green-bg-letters2: #3d5021;
-}
-```
-
-Principios visuales actuales:
-
-- Fondo principal crema.
-- Verdes oscuros para encabezados y navegación.
-- Gradientes verdes para llamadas a la acción.
-- Bordes redondeados amplios.
-- Sombras suaves.
-- Fotografías naturales como contenido y decoración.
-- Diseño responsive con puntos de quiebre definidos en cada módulo CSS.
-
-## 9. Recursos gráficos
-
-Las imágenes importadas desde `src/assets/` pasan por el procesamiento de Vite. Los principales grupos son:
-
-- `hero/`: composiciones de portada.
-- `about/`: elementos de la sección institucional.
-- `contacto/`: hojas, polen y composiciones de contacto.
-- `objects/`: recursos naturales usados en proyectos, mapas y perfiles temporales.
-- `objets/`: panorama inferior de objetivos y recursos adicionales.
-
-Los perfiles y proyectos utilizan actualmente imágenes ambientales como contenido provisional. Deben sustituirse por fotografías definitivas antes de publicar.
-
-## 10. Responsive y accesibilidad
-
-El proyecto contempla:
-
-- Navegación móvil con botón hamburguesa.
-- Cuadrículas que reducen columnas progresivamente.
-- Equipo directivo con scroll horizontal en móvil.
-- Imágenes decorativas con `alt=""` o `aria-hidden`.
-- Etiquetas `aria-label` para enlaces con íconos.
-- Respeto a `prefers-reduced-motion` en las secciones animadas.
-- SVG con `currentColor` para mantener contraste durante hover.
-
-Se recomienda verificar manualmente las vistas en 390 px, 768 px, 1024 px, 1440 px y 1920 px.
-
-## 11. Contenido pendiente de producción
-
-Antes de publicar se deben reemplazar:
-
-- Nombres provisionales del equipo.
-- Fotografías del equipo.
-- Correos de ejemplo.
-- Números de WhatsApp de ejemplo.
-- Usuarios de redes sociales de ejemplo.
-- Proyectos y convocatorias de demostración.
-- Enlaces legales del Footer.
-- Logotipos definitivos de aliados y proveedores.
-- Configuración real del sistema de autenticación.
-- Procesamiento y almacenamiento del registro de limpieza de playas.
-- Credenciales, backend y flujo real de Mercado Pago.
-
-También se debe conectar el formulario de contacto a un backend, servicio de correo o plataforma de formularios.
-
-## 12. Recomendaciones técnicas
-
-- Incorporar React Router si aumentará el número de páginas.
-- Extraer los íconos SVG y la tarjeta social a componentes compartidos para evitar duplicación.
-- Mover proyectos, convocatorias y equipo a archivos de datos, CMS o API.
-- Optimizar las imágenes grandes a WebP o AVIF para reducir el peso del build.
-- Unificar `assets/objects` y `assets/objets` para evitar confusiones.
-- Configurar fallback hacia `index.html` en el hosting.
-- Conectar y validar el formulario de contacto.
-- Integrar los formularios de Familia y limpieza de playas con un backend.
-- Integrar Mercado Pago mediante Checkout Pro y validar notificaciones de pago.
-- Implementar autenticación segura para inicio de sesión y registro.
-- Añadir pruebas de componentes y navegación.
-
-## 13. Flujo recomendado para agregar una página
-
-1. Crear el componente en `src/pages/NombrePagina.jsx`.
-2. Crear su módulo `src/pages/NombrePagina.module.css`.
-3. Importar la página en `src/App.jsx`.
-4. Detectar su `window.location.pathname`.
-5. Añadirla a la cadena condicional de renderizado.
-6. Actualizar el enlace correspondiente en `Header.jsx`.
-7. Decidir si requiere Footer.
-8. Ejecutar `npm run build`.
-9. Probar escritorio, tablet y móvil.
-
-## 14. Estado actual
-
-El proyecto compila correctamente con `npm run build`. Se encuentran integrados el sitio principal, los catálogos, la navegación, el equipo directivo, los objetivos, las redes sociales con SVG, el mapa, la página Familia, el carrusel de aliados, la interfaz de autenticación, el registro de limpieza de playas con carrusel y el flujo visual de donativos con acceso a Mercado Pago.
+- Mantener controladores delgados y reglas reutilizables en servicios/modelos.
+- Validar todo dato externo antes de llegar a SQL.
+- No editar migraciones aplicadas.
+- Añadir pruebas para cambios de seguridad y contratos HTTP.
+- Actualizar este archivo, los README específicos y el expediente legal en el mismo cambio funcional.
+- No registrar `.env`, credenciales, tokens ni datos personales reales.

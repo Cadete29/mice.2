@@ -314,28 +314,61 @@
   text-align: center;
 }
 
+@media (min-width: 951px) and (max-width: 1599px) {
+  .page { min-height: 100svh; padding: 8rem 2rem 5rem; }
+  .layout { gap: 5rem; grid-template-columns: minmax(230px, 0.65fr) minmax(560px, 1.35fr); max-width: 1180px; }
+  .titleBlock { top: 7rem; }
+  .titleBlock h1 { font-size: clamp(3.75rem, 7vw, 6rem); }
+  .destinations h2 { margin-bottom: 1.5rem; }
+  .grid { gap: 1rem; }
+  .card { border-radius: 22px; min-height: 230px; padding: 1.75rem; }
+  .card h3 { font-size: clamp(1.25rem, 1.8vw, 1.6rem); }
+  .donarImage { height: 320px; left: -80px; top: 68%; width: 320px; }
+  .amountStep { max-width: 560px; padding: 2.5rem; }
+}
+
 @media (max-width: 950px) {
+  .page { min-height: 100svh; padding: 8rem 2rem 5rem; }
   .layout {
+    gap: 3rem;
     grid-template-columns: 1fr;
+    max-width: 760px;
   }
 
   .titleBlock {
     position: static;
   }
+
+  .titleBlock h1 { font-size: clamp(3.5rem, 10vw, 5.5rem); }
+  .donarImage { height: 280px; left: -70px; top: 72%; width: 280px; }
+  .card { min-height: 230px; }
+  .amountStep { max-width: 560px; }
 }
 
 @media (max-width: 620px) {
   .page {
+    min-height: 100svh;
     padding: 8rem 1rem 4rem;
   }
+
+  .layout { gap: 2.25rem; }
+  .titleBlock h1 { font-size: clamp(3rem, 16vw, 4.5rem); }
+  .destinations h2 { font-size: 1.3rem; margin-bottom: 1.4rem; }
 
   .grid {
     grid-template-columns: 1fr;
   }
 
   .card {
-    min-height: 240px;
+    border-radius: 20px;
+    min-height: 210px;
+    padding: 1.5rem;
   }
+
+  .donarImage { height: 220px; left: -65px; top: 80%; width: 220px; }
+  .amountStep { border-radius: 22px; margin-top: 1.5rem; padding: 1.5rem; }
+  .amountStep .backButton { margin-bottom: 1.5rem; }
+  .amountField input { font-size: 1.8rem; padding: 0.85rem 0.6rem; }
 
   .quickAmounts {
     grid-template-columns: repeat(2, 1fr);

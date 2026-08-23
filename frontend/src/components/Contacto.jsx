@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { sendContactMessage } from '../services/authApi'
 import styles from './Contacto.module.css'
 import hongis from '../assets/objects/hongis.jpg'
 import hojagrande from '../assets/contacto/hojagrande.jpg'
@@ -9,6 +10,8 @@ import hojadorada2 from '../assets/contacto/hojadorada2.jpg'
 
 const Contacto = () => {
   const sectionRef = useRef(null)
+  const [status, setStatus] = useState({ type: '', message: '' })
+  const [sending, setSending] = useState(false)
 
   useEffect(() => {
     const section = sectionRef.current
@@ -47,8 +50,24 @@ const Contacto = () => {
     }
   }, [])
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
+    const form = event.currentTarget
+    setSending(true)
+    setStatus({ type: '', message: '' })
+    try {
+      const data = Object.fromEntries(new FormData(form).entries())
+      const response = await sendContactMessage(data)
+      form.reset()
+      setStatus({ type: 'success', message: response.message })
+    } catch (error) {
+      setStatus({
+        type: 'error',
+        message: error.message || 'No fue posible enviar tu mensaje. Inténtalo nuevamente.',
+      })
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -130,12 +149,21 @@ const Contacto = () => {
                 name="mensaje"
                 rows="5"
                 required
+                minLength="10"
+                maxLength="5000"
               />
             </div>
 
-            <button className={styles.submitButton} type="submit">
-              Enviar mensaje
+            <button className={styles.submitButton} type="submit" disabled={sending}>
+              {sending ? 'Enviando…' : 'Enviar mensaje'}
             </button>
+            <p
+              className={`${styles.formStatus} ${status.type ? styles[status.type] : ''}`}
+              role="status"
+              aria-live="polite"
+            >
+              {status.message}
+            </p>
           </form>
 
           <img
