@@ -5,7 +5,6 @@
   min-height: 100svh;
   padding: 8rem 1.5rem 4rem;
 }
-
 .authCard {
   background: #fff;
   border: 1px solid rgba(61, 80, 33, 0.12);
@@ -19,7 +18,6 @@
   overflow: hidden;
   width: 100%;
 }
-
 .introPanel {
   background: linear-gradient(135deg, #3d5121, #7f9544);
   color: #fff;
@@ -30,18 +28,16 @@
   padding: clamp(2rem, 5vw, 4rem);
   position: relative;
 }
-
 .introPanel::after {
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 50%;
   bottom: -8rem;
-  content: '';
+  content: "";
   height: 24rem;
   position: absolute;
   right: -10rem;
   width: 24rem;
 }
-
 .introPanel img {
   filter: brightness(0) invert(1);
   height: auto;
@@ -50,58 +46,275 @@
   width: 42%;
   z-index: 1;
 }
-
-.introPanel > div { position: relative; z-index: 1; }
-.introPanel p { color: #dfe8bd; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; margin-bottom: 1rem; text-transform: uppercase; }
-.introPanel h1 { color: #fff; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 700; letter-spacing: -0.045em; line-height: 1; }
-.introPanel span { color: rgba(255, 255, 255, 0.82); display: block; line-height: 1.55; margin-top: 1.4rem; }
-
-.formPanel { padding: clamp(1.75rem, 3.5vw, 3rem); }
-.tabs { background: var(--bg); border-radius: 999px; display: grid; grid-template-columns: 1fr 1fr; margin-bottom: 1.7rem; padding: 0.3rem; }
-.tabs button { background: transparent; border: 0; border-radius: 999px; color: #6c6a5c; cursor: pointer; font: inherit; font-weight: 700; padding: 0.75rem 1rem; }
-.tabs .activeTab { background: var(--green-bg-letters2); color: #fff; }
-.heading > p { color: #7f9544; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.11em; margin-bottom: 0.65rem; text-transform: uppercase; }
-.heading h2 { color: var(--green-bg-letters2); font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
-.heading > span { color: #656254; display: block; line-height: 1.5; margin-top: 0.8rem; }
-.form { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1.4rem; }
-.fieldRow { display: grid; gap: 0.9rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.form label { color: #343226; display: flex; flex-direction: column; font-size: 0.88rem; font-weight: 700; gap: 0.45rem; }
-.form input:not([type='checkbox']) { background: var(--bg); border: 1px solid transparent; border-radius: 13px; color: #292717; font: inherit; min-height: 44px; outline: none; padding: 0.65rem 0.85rem; }
-.form input:focus { border-color: #7f9544; box-shadow: 0 0 0 3px rgba(127, 149, 68, 0.14); }
-.textButton, .backButton { align-self: flex-end; background: none; border: 0; color: var(--green-bg-letters2); cursor: pointer; font: inherit; font-size: 0.86rem; font-weight: 800; }
-.checkField { align-items: flex-start; flex-direction: row !important; font-weight: 500 !important; line-height: 1.4; }
-.checkField input { accent-color: var(--green-bg-letters2); margin-top: 0.2rem; }
-.checkField a { color: var(--green-bg-letters2); font-weight: 800; text-decoration: underline; }
-.submitButton { background: linear-gradient(135deg, #3d5121, #7f9544); border: 0; border-radius: 999px; color: #fff; cursor: pointer; font: inherit; font-weight: 800; margin-top: 0.35rem; min-height: 46px; padding: 0.7rem 1.4rem; transition: box-shadow 180ms ease, transform 180ms ease; }
-.submitButton:hover { box-shadow: 0 14px 28px rgba(61, 81, 33, 0.24); transform: translateY(-2px); }
-.submitButton:disabled { cursor: wait; opacity: 0.65; transform: none; }
-.formError { background: #fff0ed; border: 1px solid #e7aaa0; border-radius: 11px; color: #8a2d20; font-size: 0.84rem; line-height: 1.4; margin: 0; padding: 0.7rem 0.8rem; }
-.passwordHint { color: #716f63; font-size: 0.78rem; line-height: 1.4; margin: -0.2rem 0 0; }
-.backButton { margin-top: 1.5rem; }
-.confirmation { display: flex; flex-direction: column; }
-.confirmationIcon { align-items: center; background: rgba(127, 149, 68, 0.15); border-radius: 50%; color: var(--green-bg-letters2); display: flex; font-size: 1.6rem; font-weight: 900; height: 58px; justify-content: center; margin-bottom: 1.5rem; width: 58px; }
-.confirmationEmail { background: var(--bg); border-radius: 13px; color: var(--green-bg-letters2); font-weight: 800; margin-top: 1.5rem; overflow-wrap: anywhere; padding: 0.85rem 1rem; text-align: center; }
-.confirmationHint { color: #656254; font-size: 0.86rem; line-height: 1.5; margin: 1rem 0 1.4rem; }
-.confirmationSuccess { background: #eff6df; border: 1px solid #b8ca83; border-radius: 11px; color: #3d5121; font-size: 0.84rem; line-height: 1.4; margin: 0 0 1rem; padding: 0.7rem 0.8rem; }
-.resendButton { background: transparent; border: 1px solid #7f9544; border-radius: 999px; color: var(--green-bg-letters2); cursor: pointer; font: inherit; font-weight: 800; min-height: 44px; padding: 0.65rem 1.2rem; }
-.resendButton:hover { background: rgba(127, 149, 68, 0.1); }
-.resendButton:disabled { cursor: wait; opacity: 0.6; }
-
+.introPanel > div {
+  position: relative;
+  z-index: 1;
+}
+.introPanel p {
+  color: #dfe8bd;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+.introPanel h1 {
+  color: #fff;
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+.introPanel span {
+  color: rgba(255, 255, 255, 0.82);
+  display: block;
+  line-height: 1.55;
+  margin-top: 1.4rem;
+}
+.formPanel {
+  padding: clamp(1.75rem, 3.5vw, 3rem);
+}
+.tabs {
+  background: var(--bg);
+  border-radius: 999px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 1.7rem;
+  padding: 0.3rem;
+}
+.tabs button {
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: #6c6a5c;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  padding: 0.75rem 1rem;
+}
+.tabs .activeTab {
+  background: var(--green-bg-letters2);
+  color: #fff;
+}
+.heading > p {
+  color: #7f9544;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  margin-bottom: 0.65rem;
+  text-transform: uppercase;
+}
+.heading h2 {
+  color: var(--green-bg-letters2);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.heading > span {
+  color: #656254;
+  display: block;
+  line-height: 1.5;
+  margin-top: 0.8rem;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+.fieldRow {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.form label {
+  color: #343226;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.88rem;
+  font-weight: 700;
+  gap: 0.45rem;
+}
+.form input:not([type="checkbox"]) {
+  background: var(--bg);
+  border: 1px solid transparent;
+  border-radius: 13px;
+  color: #292717;
+  font: inherit;
+  min-height: 44px;
+  outline: none;
+  padding: 0.65rem 0.85rem;
+}
+.form input:focus {
+  border-color: #7f9544;
+  box-shadow: 0 0 0 3px rgba(127, 149, 68, 0.14);
+}
+.textButton,
+.backButton {
+  align-self: flex-end;
+  background: none;
+  border: 0;
+  color: var(--green-bg-letters2);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+.checkField {
+  align-items: flex-start;
+  flex-direction: row !important;
+  font-weight: 500 !important;
+  line-height: 1.4;
+}
+.checkField input {
+  accent-color: var(--green-bg-letters2);
+  margin-top: 0.2rem;
+}
+.checkField a {
+  color: var(--green-bg-letters2);
+  font-weight: 800;
+  text-decoration: underline;
+}
+.submitButton {
+  background: linear-gradient(135deg, #3d5121, #7f9544);
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  margin-top: 0.35rem;
+  min-height: 46px;
+  padding: 0.7rem 1.4rem;
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+.submitButton:hover {
+  box-shadow: 0 14px 28px rgba(61, 81, 33, 0.24);
+  transform: translateY(-2px);
+}
+.submitButton:disabled {
+  cursor: wait;
+  opacity: 0.65;
+  transform: none;
+}
+.formError {
+  background: #fff0ed;
+  border: 1px solid #e7aaa0;
+  border-radius: 11px;
+  color: #8a2d20;
+  font-size: 0.84rem;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0.7rem 0.8rem;
+}
+.passwordHint {
+  color: #716f63;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  margin: -0.2rem 0 0;
+}
+.backButton {
+  margin-top: 1.5rem;
+}
+.confirmation {
+  display: flex;
+  flex-direction: column;
+}
+.confirmationIcon {
+  align-items: center;
+  background: rgba(127, 149, 68, 0.15);
+  border-radius: 50%;
+  color: var(--green-bg-letters2);
+  display: flex;
+  font-size: 1.6rem;
+  font-weight: 900;
+  height: 58px;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  width: 58px;
+}
+.confirmationEmail {
+  background: var(--bg);
+  border-radius: 13px;
+  color: var(--green-bg-letters2);
+  font-weight: 800;
+  margin-top: 1.5rem;
+  overflow-wrap: anywhere;
+  padding: 0.85rem 1rem;
+  text-align: center;
+}
+.confirmationHint {
+  color: #656254;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  margin: 1rem 0 1.4rem;
+}
+.confirmationSuccess {
+  background: #eff6df;
+  border: 1px solid #b8ca83;
+  border-radius: 11px;
+  color: #3d5121;
+  font-size: 0.84rem;
+  line-height: 1.4;
+  margin: 0 0 1rem;
+  padding: 0.7rem 0.8rem;
+}
+.resendButton {
+  background: transparent;
+  border: 1px solid #7f9544;
+  border-radius: 999px;
+  color: var(--green-bg-letters2);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  min-height: 44px;
+  padding: 0.65rem 1.2rem;
+}
+.resendButton:hover {
+  background: rgba(127, 149, 68, 0.1);
+}
+.resendButton:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
 @media (min-width: 801px) and (max-width: 1599px) {
-  .page { padding-bottom: 3rem; padding-top: 7rem; }
-  .authCard { max-width: 900px; min-height: 540px; }
-  .introPanel { padding: 3rem; }
-  .formPanel { padding: 2.25rem; }
+  .page {
+    padding-bottom: 3rem;
+    padding-top: 7rem;
+  }
+  .authCard {
+    max-width: 900px;
+    min-height: 540px;
+  }
+  .introPanel {
+    padding: 3rem;
+  }
+  .formPanel {
+    padding: 2.25rem;
+  }
 }
-
 @media (max-width: 800px) {
-  .page { padding: 7rem 1rem 3rem; }
-  .authCard { grid-template-columns: 1fr; }
-  .introPanel { min-height: 330px; }
+  .page {
+    padding: 7rem 1rem 3rem;
+  }
+  .authCard {
+    grid-template-columns: 1fr;
+  }
+  .introPanel {
+    min-height: 330px;
+  }
 }
-
 @media (max-width: 520px) {
-  .authCard { border-radius: 22px; }
-  .fieldRow { grid-template-columns: 1fr; }
-  .formPanel { padding: 1.5rem; }
+  .authCard {
+    border-radius: 22px;
+  }
+  .fieldRow {
+    grid-template-columns: 1fr;
+  }
+  .formPanel {
+    padding: 1.5rem;
+  }
 }

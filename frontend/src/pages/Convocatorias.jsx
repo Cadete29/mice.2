@@ -1,6 +1,72 @@
-import {useEffect,useState} from 'react'
-import styles from './ChiapasPorElClima.module.css'
-import ConvocatoriaCard from '../components/ConvocatoriaCard'
-import * as authApi from '../services/authApi'
-const Convocatorias=()=>{const[calls,setCalls]=useState([]),[busy,setBusy]=useState(''),[applied,setApplied]=useState([]),[message,setMessage]=useState('');useEffect(()=>{authApi.listCalls().then(r=>setCalls(r.calls));authApi.listMyApplications().then(r=>setApplied(r.applications.map(a=>a.call.id))).catch(()=>{})},[]);const apply=async call=>{if(!authApi.hasAccessToken())return location.href='/sign-up';setBusy(call.id);setMessage('');try{await authApi.applyToCall(call.id);setApplied(x=>[...x,call.id]);setMessage('Tu postulación fue enviada al equipo administrador.')}catch(error){if(error.status===401)return location.href='/sign-up';setMessage(error.message)}finally{setBusy('')}};return <main className={styles.page}><section className={styles.hero}><div className={styles.content}><p className={styles.eyebrow}>Participa · Conecta · Transforma</p><h1>Convocatorias</h1><p className={styles.intro}>Descubre oportunidades para impulsar ideas y transformar el futuro ambiental de Chiapas.</p></div></section><section className={styles.catalog}><div className={styles.catalogContainer}><div className={styles.catalogHeading}><p className={styles.eyebrow}>Oportunidades abiertas</p><h2>Convocatorias</h2><p>Postúlate; tus datos de contacto autorizados serán enviados al administrador.</p></div>{message&&<p>{message}</p>}<div className={styles.grid}>{calls.map(call=><ConvocatoriaCard convocatoria={call} key={call.id} onApply={apply} applying={busy===call.id} applied={applied.includes(call.id)}/>)}</div>{!calls.length&&<p>No hay convocatorias abiertas.</p>}</div></section></main>}
-export default Convocatorias
+import { useEffect, useState } from "react";
+import styles from "./ChiapasPorElClima.module.css";
+import ConvocatoriaCard from "../components/ConvocatoriaCard";
+import * as authApi from "../services/authApi";
+const Convocatorias = () => {
+  const [calls, setCalls] = useState([]),
+    [busy, setBusy] = useState(""),
+    [applied, setApplied] = useState([]),
+    [message, setMessage] = useState("");
+  useEffect(() => {
+    authApi.listCalls().then((r) => setCalls(r.calls));
+    authApi
+      .listMyApplications()
+      .then((r) => setApplied(r.applications.map((a) => a.call.id)))
+      .catch(() => {});
+  }, []);
+  const apply = async (call) => {
+    if (!authApi.hasAccessToken()) return (location.href = "/sign-up");
+    setBusy(call.id);
+    setMessage("");
+    try {
+      await authApi.applyToCall(call.id);
+      setApplied((x) => [...x, call.id]);
+      setMessage("Tu postulación fue enviada al equipo administrador.");
+    } catch (error) {
+      if (error.status === 401) return (location.href = "/sign-up");
+      setMessage(error.message);
+    } finally {
+      setBusy("");
+    }
+  };
+  return (
+    <main className={styles.page}>
+      <section className={styles.hero}>
+        <div className={styles.content}>
+          <p className={styles.eyebrow}>Participa · Conecta · Transforma</p>
+          <h1>Convocatorias</h1>
+          <p className={styles.intro}>
+            Descubre oportunidades para impulsar ideas y transformar el futuro
+            ambiental de Chiapas.
+          </p>
+        </div>
+      </section>
+      <section className={styles.catalog}>
+        <div className={styles.catalogContainer}>
+          <div className={styles.catalogHeading}>
+            <p className={styles.eyebrow}>Oportunidades abiertas</p>
+            <h2>Convocatorias</h2>
+            <p>
+              Postúlate; tus datos de contacto autorizados serán enviados al
+              administrador.
+            </p>
+          </div>
+          {message && <p>{message}</p>}
+          <div className={styles.grid}>
+            {calls.map((call) => (
+              <ConvocatoriaCard
+                convocatoria={call}
+                key={call.id}
+                onApply={apply}
+                applying={busy === call.id}
+                applied={applied.includes(call.id)}
+              />
+            ))}
+          </div>
+          {!calls.length && <p>No hay convocatorias abiertas.</p>}
+        </div>
+      </section>
+    </main>
+  );
+};
+export default Convocatorias;

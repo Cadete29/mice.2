@@ -37,7 +37,7 @@ Navegador
        └─ HTTPS/JSON y cookie HttpOnly
             └─ backend/ · Express 5
                  ├─ PostgreSQL · datos, sesiones y consentimientos
-                 └─ SMTP · Gmail o Namecheap
+                 └─ SMTP · Namecheap Private Email
 ```
 
 ## Tecnologías
@@ -48,7 +48,7 @@ Navegador
 | API | Node.js 22, Express 5, Zod |
 | Datos | PostgreSQL, migraciones SQL versionadas |
 | Seguridad | Argon2id, JWT, refresh tokens opacos, TOTP, Helmet, CORS, rate limiting |
-| Correo | Nodemailer con Gmail o Namecheap |
+| Correo | Nodemailer con Namecheap Private Email |
 | Calidad | Node Test Runner, Playwright, ESLint, GitHub Actions |
 
 ## Estructura
@@ -91,7 +91,7 @@ npm run db:migrate
 npm run dev
 ```
 
-Configura primero las credenciales PostgreSQL y los secretos de `.env`. La API queda normalmente en `http://localhost:3000`.
+Configura primero las credenciales PostgreSQL y los secretos de `.env`. La API queda normalmente en `http://localhost:4002`.
 
 ### Frontend
 
@@ -104,7 +104,7 @@ copy .env.example .env
 npm run dev
 ```
 
-El cliente queda normalmente en `http://localhost:5173` y usa `VITE_API_URL=http://localhost:3000/api`.
+El cliente queda normalmente en `http://localhost:5173` durante desarrollo. Para el dominio temporal usa `VITE_API_URL=https://xiuhcoatltech.com.mx/api` y un proxy HTTPS que reenvíe `/api` al backend en `http://179.198.203.120:4002`.
 
 ## Comandos principales
 

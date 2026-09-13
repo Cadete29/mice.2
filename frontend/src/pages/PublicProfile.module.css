@@ -1,1 +1,167 @@
-.page{background:#f4f5ed;min-height:75svh}.hero{background:linear-gradient(135deg,#294817,#7f9544);color:#fff;padding:9rem max(1rem,5vw) 4rem}.heroContent{align-items:center;display:grid;gap:clamp(1.5rem,5vw,4rem);grid-template-columns:190px 1fr;margin:auto;max-width:1180px}.photo{align-items:center;background:#e4eccf;border:6px solid rgba(255,255,255,.3);border-radius:50%;color:#405a29;display:flex;font-size:3rem;font-weight:900;height:190px;justify-content:center;overflow:hidden;width:190px}.photo img{height:100%;object-fit:cover;width:100%}.eyebrow{color:#cddb9f;font-size:.75rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.hero h1{font-size:clamp(2.5rem,6vw,5rem);line-height:1;margin:.5rem 0 1rem}.intro{font-size:1.08rem;line-height:1.65;max-width:780px;white-space:pre-wrap}.social{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.25rem}.social a{background:#fff;border-radius:999px;color:#33451f;font-weight:800;padding:.55rem .85rem}.body{margin:auto;max-width:1180px;padding:4rem max(1rem,2vw) 6rem}.body .eyebrow{color:#7f9544}.statements{display:grid;gap:1rem;grid-template-columns:1fr 1fr}.statements article{background:#fff;border:1px solid #e2e5d7;border-radius:20px;padding:2rem}.statements h2,.projects h2{color:#33451f;font-size:clamp(1.7rem,4vw,2.7rem);margin:.4rem 0 1rem}.statements article>p:last-child{color:#505748;line-height:1.7;overflow-wrap:anywhere;white-space:pre-wrap}.objectives{grid-column:1/-1}.projects{margin-top:4rem}.grid{display:grid;gap:1rem;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:1.5rem}.empty,.loading{margin:auto;max-width:800px;padding:12rem 1rem;text-align:center}.empty a{color:#405a29;font-weight:800}@media(max-width:800px){.heroContent{grid-template-columns:1fr;text-align:center}.photo{margin:auto}.social{justify-content:center}.statements,.grid{grid-template-columns:1fr}.objectives{grid-column:auto}}
+.page {
+  background: #f4f5ed;
+  min-height: 75svh;
+}
+
+.hero {
+  background: linear-gradient(135deg, #294817, #7f9544);
+  color: #fff;
+  padding: 9rem max(1rem, 5vw) 4rem;
+}
+
+.heroContent {
+  align-items: center;
+  display: grid;
+  gap: clamp(1.5rem, 5vw, 4rem);
+  grid-template-columns: 190px 1fr;
+  margin: auto;
+  max-width: 1180px;
+}
+
+.photo {
+  align-items: center;
+  background: #e4eccf;
+  border: 6px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: #405a29;
+  display: flex;
+  font-size: 3rem;
+  font-weight: 900;
+  height: 190px;
+  justify-content: center;
+  overflow: hidden;
+  width: 190px;
+}
+
+.photo img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.eyebrow {
+  color: #cddb9f;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  color: #ffffff;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1;
+  margin: 0.5rem 0 1rem;
+}
+
+.intro {
+  color: #ffffff;
+  font-size: 1.08rem;
+  line-height: 1.65;
+  max-width: 780px;
+  white-space: pre-wrap;
+}
+
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1.25rem;
+}
+
+.social a {
+  background: #fff;
+  border-radius: 999px;
+  color: #33451f;
+  font-weight: 800;
+  padding: 0.55rem 0.85rem;
+}
+
+.body {
+  margin: auto;
+  max-width: 1180px;
+  padding: 4rem max(1rem, 2vw) 6rem;
+}
+
+.body .eyebrow {
+  color: #7f9544;
+}
+
+.statements {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.statements article {
+  background: #fff;
+  border: 1px solid #e2e5d7;
+  border-radius: 20px;
+  padding: 2rem;
+}
+
+.statements h2,
+.projects h2 {
+  color: #33451f;
+  font-size: clamp(1.7rem, 4vw, 2.7rem);
+  margin: 0.4rem 0 1rem;
+}
+
+.statements article > p:last-child {
+  color: #505748;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.objectives {
+  grid-column: 1/-1;
+}
+
+.projects {
+  margin-top: 4rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 1.5rem;
+}
+
+.empty,
+.loading {
+  margin: auto;
+  max-width: 800px;
+  padding: 12rem 1rem;
+  text-align: center;
+}
+
+.empty a {
+  color: #405a29;
+  font-weight: 800;
+}
+
+@media (max-width: 800px) {
+  .heroContent {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .photo {
+    margin: auto;
+  }
+
+  .social {
+    justify-content: center;
+  }
+
+  .statements,
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .objectives {
+    grid-column: auto;
+  }
+}

@@ -10,7 +10,6 @@
   padding: 4rem 1rem;
   position: relative;
 }
-
 .objetivosImagenLateral {
   height: 110%;
   object-fit: cover;
@@ -23,7 +22,6 @@
   width: 400px;
   z-index: 0;
 }
-
 .objetivosArbusto {
   height: 151.3px;
   object-fit: cover;
@@ -33,30 +31,27 @@
   width: 266.6px;
   z-index: 0;
 }
-
 .objetivosArbustoSuperior {
   left: 416.2px;
   top: -104px;
-  transform: translate3d(0, var(--parallax-arbusto-superior-y), 0) rotate(160.3deg);
+  transform: translate3d(0, var(--parallax-arbusto-superior-y), 0)
+    rotate(160.3deg);
 }
-
 .objetivosArbustoInferior {
   bottom: -40px;
   left: -74px;
-  transform: translate3d(0, var(--parallax-arbusto-inferior-y), 0) rotate(160.3deg);
+  transform: translate3d(0, var(--parallax-arbusto-inferior-y), 0)
+    rotate(160.3deg);
 }
-
 @media (prefers-reduced-motion: reduce) {
   .objetivosImagenLateral,
   .objetivosArbusto {
     transform: none;
   }
-
   .objetivosArbusto {
     transform: rotate(160.3deg);
   }
 }
-
 .objetivosContainer {
   max-width: 1126px;
   margin: 0 auto;
@@ -68,56 +63,65 @@
   width: 100%;
   z-index: 1;
 }
-
 .objetivosContent {
   max-width: 760px;
   text-align: left;
   transform: translate(-8vw, -3vh);
 }
-
 .objetivosContent h2 {
   color: var(--green-bg-letters2);
-  font-family: 'Open Sauce', 'Aileron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-family:
+    "Open Sauce",
+    "Aileron",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    sans-serif;
   font-size: clamp(3rem, 6vw, 6.25rem);
   font-weight: 700;
   line-height: 0.98;
   margin: 0;
 }
-
 .objetivosContent h2 span {
   display: block;
   font-weight: 400;
   padding-left: 0;
 }
-
 .proyectosActivos {
   --proyectos-hoja-size: clamp(2.5rem, 4vw, 4rem);
   margin-top: 11rem;
   max-width: 620px;
 }
-
 .proyectosActivosTitulo {
   align-items: center;
   display: flex;
   gap: 0.8rem;
   margin-bottom: 1rem;
 }
-
 .proyectosActivosTitulo img {
   height: var(--proyectos-hoja-size);
   object-fit: contain;
   width: var(--proyectos-hoja-size);
 }
-
 .proyectosActivos h3 {
   color: #3d5021;
-  font-family: 'Aileron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-family:
+    "Aileron",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    sans-serif;
   font-size: clamp(1.35rem, 2vw, 2rem);
   font-weight: 700;
   line-height: 1.15;
   margin: 0;
 }
-
 .proyectosActivos ul {
   display: grid;
   gap: 0.55rem;
@@ -125,41 +129,43 @@
   margin: 0;
   padding: 0 0 0 calc(var(--proyectos-hoja-size) + 0.8rem);
 }
-
 .proyectosActivos li {
   line-height: 1.35;
 }
-
 .proyectosActivos button {
   background: transparent;
   border: 0;
   color: #3d5021;
   cursor: pointer;
-  font-family: 'Aileron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-family:
+    "Aileron",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    sans-serif;
   font-size: clamp(0.98rem, 1.15vw, 1.18rem);
   font-weight: 600;
   line-height: 1.35;
   padding: 0;
   text-align: left;
 }
-
 .proyectosActivos button::before {
-  content: '-';
+  content: "-";
   margin-right: 0.35rem;
 }
-
 .proyectosActivos button:hover,
 .proyectosActivos button.active {
   text-decoration: underline;
   text-underline-offset: 0.22em;
 }
-
 .objetivosSide {
   display: flex;
   flex: 0 0 min(44vw, 560px);
   flex-direction: column;
 }
-
 .objetivosMapCard {
   aspect-ratio: 16 / 10;
   border: 3px solid #3d5021;
@@ -170,88 +176,115 @@
   position: relative;
   width: 100%;
 }
-
 .objetivosMap {
   height: 100%;
   width: 100%;
 }
-
 .objetivosMap:global(.leaflet-container) {
-  font-family: 'Aileron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-family:
+    "Aileron",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    sans-serif;
 }
-
 .objetivosMapCard :global(.leaflet-control-attribution) {
   font-size: 0.68rem;
 }
-
 .proyectoDetalles {
   --detalles-hoja-size: clamp(2.5rem, 4vw, 4rem);
   color: #3d5021;
   margin-top: 6rem;
   max-width: 560px;
 }
-
 .proyectoDetallesTitulo {
   align-items: center;
   display: flex;
   gap: 0.8rem;
   margin-bottom: 1rem;
 }
-
 .proyectoDetallesTitulo img {
   height: var(--detalles-hoja-size);
   object-fit: contain;
   width: var(--detalles-hoja-size);
 }
-
 .proyectoDetalles > strong,
 .proyectoDetalles > span,
 .proyectoDetalles > h4,
 .proyectoDetalles > p {
   margin-left: calc(var(--detalles-hoja-size) + 0.8rem);
 }
-
 .proyectoDetalles h3 {
   color: inherit;
-  font-family: 'Aileron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-family:
+    "Aileron",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    sans-serif;
   font-size: clamp(1.35rem, 2vw, 2rem);
   font-weight: 700;
   line-height: 1.15;
   margin: 0;
 }
-
 .proyectoDetalles strong,
 .proyectoDetalles span {
   color: inherit;
   display: block;
-  font-family: 'Aileron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-family:
+    "Aileron",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    sans-serif;
 }
-
 .proyectoDetalles strong {
   font-size: clamp(1.05rem, 1.3vw, 1.35rem);
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 0.35rem;
 }
-
 .proyectoDetalles span {
   font-size: 0.95rem;
   font-weight: 700;
   margin-bottom: 1rem;
 }
-
 .proyectoDetalles h4 {
   color: inherit;
-  font-family: 'Aileron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-family:
+    "Aileron",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    sans-serif;
   font-size: 1rem;
   font-weight: 800;
   margin-bottom: 0.35rem;
   margin-top: 0;
 }
-
 .proyectoDetalles p {
   color: inherit;
-  font-family: 'Aileron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  font-family:
+    "Aileron",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    sans-serif;
   font-size: clamp(0.98rem, 1.15vw, 1.18rem);
   font-weight: 600;
   line-height: 1.35;
@@ -259,91 +292,102 @@
   margin-right: 0;
   margin-top: 0;
 }
-
 @media (min-width: 921px) and (max-width: 1599px) {
-  .objetivosSection { min-height: 100svh; padding-bottom: 5rem; padding-top: 5rem; }
-  .objetivosContainer { max-width: min(1040px, calc(100vw - 4rem)); }
-  .objetivosContent { max-width: 540px; transform: none; }
-  .objetivosContent h2 { font-size: clamp(3rem, 5.2vw, 5rem); }
-  .proyectosActivos { margin-top: 6rem; }
-  .objetivosSide { flex-basis: min(42vw, 480px); }
-  .proyectoDetalles { margin-top: 3.5rem; }
-  .objetivosImagenLateral { width: 320px; }
-  .objetivosArbusto { height: 125px; width: 220px; }
-  .objetivosArbustoSuperior { left: 30%; top: -80px; }
-  .objetivosArbustoInferior { bottom: -30px; left: -55px; }
+  .objetivosSection {
+    min-height: 100svh;
+    padding-bottom: 5rem;
+    padding-top: 5rem;
+  }
+  .objetivosContainer {
+    max-width: min(1040px, calc(100vw - 4rem));
+  }
+  .objetivosContent {
+    max-width: 540px;
+    transform: none;
+  }
+  .objetivosContent h2 {
+    font-size: clamp(3rem, 5.2vw, 5rem);
+  }
+  .proyectosActivos {
+    margin-top: 6rem;
+  }
+  .objetivosSide {
+    flex-basis: min(42vw, 480px);
+  }
+  .proyectoDetalles {
+    margin-top: 3.5rem;
+  }
+  .objetivosImagenLateral {
+    width: 320px;
+  }
+  .objetivosArbusto {
+    height: 125px;
+    width: 220px;
+  }
+  .objetivosArbustoSuperior {
+    left: 30%;
+    top: -80px;
+  }
+  .objetivosArbustoInferior {
+    bottom: -30px;
+    left: -55px;
+  }
 }
-
 @media (max-width: 920px) {
   .objetivosContainer {
     gap: 2rem;
   }
-
   .objetivosContent {
     max-width: 620px;
     transform: translate(-5vw, 0);
   }
-
   .objetivosSide {
     flex-basis: min(44vw, 390px);
   }
-
   .proyectoDetalles {
     margin-top: 4rem;
   }
 }
-
 @media (max-width: 768px) {
   .objetivosSection {
     align-items: flex-start;
     padding: 7rem 1rem 4rem;
   }
-
   .objetivosArbusto {
     display: none;
   }
-
   .objetivosContent {
     max-width: 100%;
     transform: none;
   }
-
   .objetivosContainer {
     flex-direction: column;
   }
-
   .objetivosSide {
     flex-basis: auto;
     width: 100%;
   }
-
   .objetivosImagenLateral {
     opacity: 0.3;
   }
-
   .proyectoDetalles {
     margin-top: 3rem;
     max-width: 100%;
   }
 }
-
 @media (max-width: 560px) {
   .objetivosContent h2 {
     font-size: 2.65rem;
   }
-
   .proyectosActivos {
     margin-top: 7rem;
   }
-
   .proyectosActivos li {
     font-size: 0.95rem;
   }
-
   .proyectoDetalles {
     margin-top: 2.5rem;
   }
-
   .proyectoDetalles p {
     font-size: 0.95rem;
   }

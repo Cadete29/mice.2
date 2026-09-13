@@ -1,5 +1,9 @@
 const nodemailer = require('nodemailer');
+const path = require('node:path');
 const config = require('../config/env');
+
+const EMAIL_LOGO_CID = 'micelo-logo-png@micelo';
+const emailHeader = `<tr><td style="background:#3d5121;color:#fff;padding:28px 36px"><img src="cid:${EMAIL_LOGO_CID}" alt="MICE-LO" width="320" height="88" style="display:block;width:320px;max-width:100%;height:auto;border:0"></td></tr>`;
 
 const PROVIDERS = {
   gmail: { host: 'smtp.gmail.com', port: 465, secure: true },
@@ -32,7 +36,7 @@ function layout(title, name, message, buttonText, url, expiration) {
   return `<!doctype html><html lang="es"><body style="margin:0;background:#f4f4ed;font-family:Arial,sans-serif;color:#343226">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr><td style="padding:40px 16px">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:600px;margin:auto;background:#fff;border-radius:20px;overflow:hidden">
-  <tr><td style="background:#3d5121;color:#fff;padding:28px 36px"><strong style="font-size:24px">MICE-LO</strong></td></tr>
+  ${emailHeader}
   <tr><td style="padding:36px"><h1 style="color:#3d5121;font-size:26px">${escapeHtml(title)}</h1>
   <p>Hola ${escapeHtml(name)},</p><p style="line-height:1.6">${escapeHtml(message)}</p>
   <p style="margin:30px 0"><a href="${escapeHtml(url)}" style="background:#607a2f;color:#fff;text-decoration:none;padding:14px 24px;border-radius:999px;font-weight:bold">${escapeHtml(buttonText)}</a></p>
@@ -47,19 +51,26 @@ async function send({ to, subject, text, html, replyTo }) {
   const fromAddress = config.EMAIL_FROM_ADDRESS || config.EMAIL_USER;
   const info = await mailer.sendMail({
     from: `"${config.EMAIL_FROM_NAME.replace(/"/g, '')}" <${fromAddress}>`, to, subject, text, html, replyTo,
+    attachments: [{
+      filename: 'email-logo.png',
+      path: path.join(__dirname, '..', '..', 'public', 'email-logo.png'),
+      cid: EMAIL_LOGO_CID,
+      contentType: 'image/png',
+      contentDisposition: 'inline',
+    }],
   });
   return { sent: true, messageId: info.messageId };
 }
 
-function contactLayout({ title, greeting, paragraphs }) {
+function contactLayout({ title, greeting, paragraphs, footer = 'Este correo fue generado desde el formulario de contacto de MICE-LO.' }) {
   const content = paragraphs.map((paragraph) => `<p style="line-height:1.65;white-space:pre-wrap">${escapeHtml(paragraph)}</p>`).join('');
   return `<!doctype html><html lang="es"><body style="margin:0;background:#f4f4ed;font-family:Arial,sans-serif;color:#343226">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr><td style="padding:40px 16px">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:600px;margin:auto;background:#fff;border-radius:20px;overflow:hidden">
-  <tr><td style="background:#3d5121;color:#fff;padding:28px 36px"><strong style="font-size:24px">MICE-LO</strong></td></tr>
+  ${emailHeader}
   <tr><td style="padding:36px"><h1 style="color:#3d5121;font-size:26px">${escapeHtml(title)}</h1>
   <p>Hola ${escapeHtml(greeting)},</p>${content}
-  <p style="color:#6c6a5c;font-size:13px;margin-top:30px">Este correo fue generado desde el formulario de contacto de MICE-LO.</p>
+  <p style="color:#6c6a5c;font-size:13px;margin-top:30px">${escapeHtml(footer)}</p>
   </td></tr></table></td></tr></table></body></html>`;
 }
 
@@ -172,8 +183,8 @@ function sendBeachRegistrationEmails(registration){
   const phone=`${registration.callingCode} ${registration.phone}`;
   const dashboard=`${config.FRONTEND_URL}/administracion`;
   return Promise.all([
-    send({to:admin,replyTo:registration.email,subject:'Nuevo registro para limpieza de playas',text:`${name} se registró para la limpieza de playas.\nCorreo: ${registration.email}\nTeléfono: ${phone}\nTransporte: ${registration.transport}\nConsulta el registro completo: ${dashboard}`,html:contactLayout({title:'Nuevo registro de limpieza de playas',greeting:'equipo administrador',paragraphs:[`${name} completó el formulario de participación.`,`Correo: ${registration.email}\nTeléfono: ${phone}\nTransporte: ${registration.transport}\n\nConsulta los datos completos y consentimientos en el dashboard administrativo.`]})}),
-    send({to:registration.email,subject:'Confirmación de registro — Limpieza de playas',text:`Hola ${registration.firstName}. Recibimos tu registro para participar en la limpieza de playas. El equipo organizador se comunicará contigo para compartir el punto de encuentro, horario y recomendaciones.`,html:contactLayout({title:'Registro confirmado',greeting:registration.firstName,paragraphs:['Recibimos tu registro para participar en la jornada de limpieza de playas.','El equipo organizador se comunicará contigo para compartir el punto de encuentro, horario y recomendaciones. ¡Gracias por sumarte!']})}),
+    send({to:admin,replyTo:registration.email,subject:`Nuevo registro — ${registration.eventName || 'Evento'}`,text:`${name} se registró para ${registration.eventName || "el evento"}.\nCorreo: ${registration.email}\nTeléfono: ${phone}\nTransporte: ${registration.transport}\nConsulta el registro completo: ${dashboard}`,html:contactLayout({title:'Nuevo registro de evento',greeting:'equipo administrador',paragraphs:[`${name} completó el formulario de participación.`,`Correo: ${registration.email}\nTeléfono: ${phone}\nTransporte: ${registration.transport}\n\nConsulta los datos completos y consentimientos en el dashboard administrativo.`]})}),
+    send({to:registration.email,subject:`Confirmación de registro — ${registration.eventName || 'Evento'}`,text:`Hola ${registration.firstName}. Recibimos tu registro para participar en ${registration.eventName || "el evento"}. El equipo organizador se comunicará contigo para compartir el punto de encuentro, horario y recomendaciones.`,html:contactLayout({title:'Registro confirmado',greeting:registration.firstName,paragraphs:[`Recibimos tu registro para participar en ${registration.eventName || "el evento"}.`,'El equipo organizador se comunicará contigo para compartir el punto de encuentro, horario y recomendaciones. ¡Gracias por sumarte!']})}),
   ]);
 }
 const trySendBeachRegistrationEmails=(data)=>tryDelivery('beach_registration',()=>sendBeachRegistrationEmails(data));
@@ -202,7 +213,22 @@ async function verifyConnection() {
   }
 }
 
-module.exports = {
+async function sendParticipantEmail({ to, name, subject, message }) {
+  const greeting = name?.trim() || 'participante';
+  const footer = 'Recibes este mensaje del equipo organizador de MICE-LO porque te registraste en uno de nuestros eventos.';
+  return send({
+    to,
+    subject,
+    text: `Hola ${greeting},\n\n${message}\n\n${footer}`,
+    html: contactLayout({
+      title: subject,
+      greeting,
+      paragraphs: [message],
+      footer,
+    }),
+  });
+}
+module.exports = { sendParticipantEmail,
   sendVerificationEmail, sendPasswordResetEmail,
   trySendVerificationEmail, trySendPasswordResetEmail, trySendNewProjectEmail, trySendApplicationEmail,
   sendContactEmails, sendFamilyContactEmail, trySendBeachRegistrationEmails, verifyConnection,

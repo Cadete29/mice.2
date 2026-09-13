@@ -1,1 +1,110 @@
-.notice,.message{border-radius:12px;padding:.8rem 1rem}.notice{background:#fff5d9;color:#65501b}.message{background:#fff0ed;color:#8a2d20}.list{display:grid;gap:1rem;margin-top:1.5rem}.list article{background:#fff;border:1px solid #e1e4d8;border-radius:16px;padding:1rem}.heading{align-items:flex-start;display:flex;gap:1rem;justify-content:space-between}.heading strong,.heading span{display:block}.heading strong{color:#3d5121}.heading span{color:#737667;font-size:.78rem;margin-top:.25rem}.heading b{background:#edf3df;border-radius:999px;color:#405a29;font-size:.75rem;padding:.35rem .6rem}.list dl{display:grid;gap:.7rem;grid-template-columns:repeat(3,minmax(0,1fr));margin:1rem 0}.list dl>div{min-width:0}.list dt{color:#747869;font-size:.72rem;font-weight:800;text-transform:uppercase}.list dd{color:#34382f;margin:.25rem 0 0;overflow-wrap:anywhere}.list a{color:#405a29;font-weight:700}.consents{border-top:1px solid #e6e8df;color:#607a2f;font-size:.78rem;padding-top:.75rem}@media(max-width:760px){.list dl{grid-template-columns:1fr 1fr}.heading{flex-direction:column}}@media(max-width:480px){.list dl{grid-template-columns:1fr}}
+.notice,
+.message {
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+}
+
+.notice {
+  background: #fff5d9;
+  color: #65501b;
+}
+
+.message {
+  background: #fff0ed;
+  color: #8a2d20;
+}
+
+.list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.list article {
+  background: #fff;
+  border: 1px solid #e1e4d8;
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.heading {
+  align-items: flex-start;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.heading strong,
+.heading span {
+  display: block;
+}
+
+.heading strong {
+  color: #3d5121;
+}
+
+.heading span {
+  color: #737667;
+  font-size: 0.78rem;
+  margin-top: 0.25rem;
+}
+
+.heading b {
+  background: #edf3df;
+  border-radius: 999px;
+  color: #405a29;
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+}
+
+.list dl {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 1rem 0;
+}
+
+.list dl > div {
+  min-width: 0;
+}
+
+.list dt {
+  color: #747869;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.list dd {
+  color: #34382f;
+  margin: 0.25rem 0 0;
+  overflow-wrap: anywhere;
+}
+
+.list a {
+  color: #405a29;
+  font-weight: 700;
+}
+
+.consents {
+  border-top: 1px solid #e6e8df;
+  color: #607a2f;
+  font-size: 0.78rem;
+  padding-top: 0.75rem;
+}
+
+@media (max-width: 760px) {
+  .list dl {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .heading {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .list dl {
+    grid-template-columns: 1fr;
+  }
+}

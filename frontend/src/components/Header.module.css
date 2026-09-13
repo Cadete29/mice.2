@@ -8,7 +8,6 @@
   right: 0;
   z-index: 100;
 }
-
 .headerContainer {
   max-width: 1126px;
   margin: 0 auto;
@@ -17,30 +16,25 @@
   align-items: center;
   padding: 0 1rem;
 }
-
 .logo {
   display: flex;
   align-items: center;
 }
-
 .logo a {
   display: inline-flex;
   align-items: center;
 }
-
 .logo img {
   display: block;
   width: clamp(96px, 12vw, 144px);
   height: auto;
 }
-
 .navMenu {
   background: var(--green-bg);
   border-radius: 999px;
   padding: 0.85rem 1.25rem;
   box-shadow: 0 12px 30px rgba(57, 80, 31, 0.18);
 }
-
 .navMenu ul {
   display: flex;
   align-items: center;
@@ -49,19 +43,16 @@
   margin: 0;
   padding: 0;
 }
-
 .navMenu li {
   display: flex;
   align-items: center;
 }
-
 .navMenu li + li::before {
-  content: '|';
+  content: "|";
   color: rgba(255, 255, 255, 0.65);
   margin: 0 0.9rem;
   font-weight: 400;
 }
-
 .navMenu a {
   color: #ffffff;
   text-decoration: none;
@@ -69,11 +60,9 @@
   font-weight: 600;
   white-space: nowrap;
 }
-
 .navMenu a:hover {
   color: #f2f6dc;
 }
-
 .sessionButton {
   align-items: center;
   background: #dfe8bd;
@@ -88,10 +77,13 @@
   overflow: hidden;
   padding: 0;
   position: relative;
-  transition: width 300ms ease, border-radius 300ms ease, background 300ms ease, transform 120ms ease;
+  transition:
+    width 300ms ease,
+    border-radius 300ms ease,
+    background 300ms ease,
+    transform 120ms ease;
   width: 42px;
 }
-
 .sessionIcon {
   align-items: center;
   display: flex;
@@ -99,10 +91,14 @@
   justify-content: center;
   transition: transform 300ms ease;
 }
-
-.sessionIcon svg { fill: currentColor; height: 17px; width: 17px; }
-.sessionButton:not(.logoutButton) .sessionIcon { transform: rotate(180deg); }
-
+.sessionIcon svg {
+  fill: currentColor;
+  height: 17px;
+  width: 17px;
+}
+.sessionButton:not(.logoutButton) .sessionIcon {
+  transform: rotate(180deg);
+}
 .sessionText {
   font-size: 0.9rem;
   font-weight: 800;
@@ -111,43 +107,42 @@
   white-space: nowrap;
   width: 0;
 }
-
 .sessionButton:hover,
 .sessionButton:focus-visible {
   border-radius: 40px;
   width: 146px;
 }
-
 .sessionButton:hover .sessionText,
 .sessionButton:focus-visible .sessionText {
   opacity: 1;
   transition: opacity 180ms ease 80ms;
   width: auto;
 }
-
 .sessionButton:hover .sessionIcon,
-.sessionButton:focus-visible .sessionIcon { flex-basis: 38px; }
-.sessionButton:active { transform: translate(2px, 2px); }
-.sessionButton.logoutButton { background: #7f9544; color: #fff; }
-
+.sessionButton:focus-visible .sessionIcon {
+  flex-basis: 38px;
+}
+.sessionButton:active {
+  transform: translate(2px, 2px);
+}
+.sessionButton.logoutButton {
+  background: #7f9544;
+  color: #fff;
+}
 @media (max-width: 1180px) {
   .headerContainer {
     max-width: 920px;
   }
-
   .navMenu {
     padding: 0.75rem 1rem;
   }
-
   .navMenu a {
     font-size: 0.92rem;
   }
-
   .navMenu li + li::before {
     margin: 0 0.65rem;
   }
 }
-
 .menuToggle {
   display: none;
   background: none;
@@ -155,7 +150,6 @@
   cursor: pointer;
   padding: 0.5rem;
 }
-
 .hamburger {
   display: block;
   width: 25px;
@@ -164,10 +158,9 @@
   position: relative;
   transition: all 0.3s;
 }
-
 .hamburger::before,
 .hamburger::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 25px;
   height: 3px;
@@ -175,24 +168,19 @@
   left: 0;
   transition: all 0.3s;
 }
-
 .hamburger::before {
   top: -8px;
 }
-
 .hamburger::after {
   bottom: -8px;
 }
-
 @media (max-width: 768px) {
   .headerContainer {
     position: relative;
   }
-
   .menuToggle {
     display: block;
   }
-  
   .navMenu {
     display: none;
     position: absolute;
@@ -203,25 +191,28 @@
     padding: 1rem;
     border-radius: 22px;
   }
-  
   .navMenu.open {
     display: block;
   }
-  
   .navMenu ul {
     flex-direction: column;
     gap: 1rem;
     align-items: center;
   }
-
   .navMenu li + li::before {
     display: none;
   }
-
   .sessionButton,
   .sessionButton:hover,
-  .sessionButton:focus-visible { border-radius: 40px; width: 146px; }
-
-  .sessionButton .sessionIcon { flex-basis: 38px; }
-  .sessionButton .sessionText { opacity: 1; width: auto; }
+  .sessionButton:focus-visible {
+    border-radius: 40px;
+    width: 146px;
+  }
+  .sessionButton .sessionIcon {
+    flex-basis: 38px;
+  }
+  .sessionButton .sessionText {
+    opacity: 1;
+    width: auto;
+  }
 }

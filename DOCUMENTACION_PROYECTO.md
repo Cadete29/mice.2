@@ -26,7 +26,7 @@ Express
   └─ middlewares  auth, roles, validación y errores
           │
           ├─ PostgreSQL
-          └─ SMTP (Gmail o Namecheap)
+          └─ SMTP (Namecheap Private Email)
 ```
 
 El frontend es una SPA sin React Router. El backend expone `/api`, aplica Helmet, CORS restringido, JSON de hasta 18 MB, cookies, errores uniformes y desactiva `x-powered-by`.
@@ -72,7 +72,7 @@ El frontend es una SPA sin React Router. El backend expone `/api`, aplica Helmet
 - Formulario para integrarse a la red Familia.
 - Correos de verificación, recuperación, confirmación de registro de playa y avisos administrativos.
 - Plantillas HTML y texto plano.
-- SMTP seleccionable por entorno entre Gmail y Namecheap, con timeouts configurables.
+- SMTP configurado para Namecheap Private Email, con timeouts configurables.
 
 ### Limpieza de playas
 

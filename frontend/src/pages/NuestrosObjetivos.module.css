@@ -3,7 +3,6 @@
   min-height: calc(100svh - 90px);
   padding-bottom: 0;
 }
-
 .hero {
   align-items: flex-start;
   display: flex;
@@ -12,11 +11,14 @@
   padding: 9rem 1.5rem 2.5rem;
   position: relative;
 }
-
 .hero::after {
-  background: radial-gradient(circle, rgba(127, 149, 68, 0.22), transparent 68%);
+  background: radial-gradient(
+    circle,
+    rgba(127, 149, 68, 0.22),
+    transparent 68%
+  );
   border-radius: 50%;
-  content: '';
+  content: "";
   height: 34rem;
   pointer-events: none;
   position: absolute;
@@ -24,19 +26,16 @@
   top: -10rem;
   width: 34rem;
 }
-
 .container,
 .objectives {
   margin: 0 auto;
   max-width: 1320px;
   width: 100%;
 }
-
 .container {
   position: relative;
   z-index: 1;
 }
-
 .eyebrow {
   color: #7f9544;
   font-size: 0.85rem;
@@ -45,7 +44,6 @@
   margin-bottom: 1rem;
   text-transform: uppercase;
 }
-
 .container h1 {
   color: var(--green-bg-letters);
   font-size: clamp(2.8rem, 6vw, 5rem);
@@ -53,7 +51,6 @@
   letter-spacing: -0.055em;
   line-height: 0.95;
 }
-
 .intro {
   color: #292717;
   font-size: clamp(1.05rem, 2vw, 1.3rem);
@@ -61,7 +58,6 @@
   margin-top: 1rem;
   max-width: 760px;
 }
-
 .objectives {
   display: grid;
   gap: 0.8rem;
@@ -71,7 +67,6 @@
   position: relative;
   z-index: 2;
 }
-
 .objectiveCard {
   background: #ffffff;
   border: 1px solid rgba(61, 80, 33, 0.12);
@@ -81,27 +76,23 @@
   padding: 1.4rem;
   height: 100%;
 }
-
 .objectiveCard span {
   color: #7f9544;
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.12em;
 }
-
 .objectiveCard h2 {
   color: var(--green-bg-letters2);
   font-size: clamp(1.25rem, 2vw, 1.65rem);
   font-weight: 700;
   margin: 0.7rem 0 0.45rem;
 }
-
 .objectiveCard p {
   color: #4e4b3d;
   font-size: 0.9rem;
   line-height: 1.45;
 }
-
 .bottomImage {
   margin: -42px auto 0;
   overflow: hidden;
@@ -109,7 +100,6 @@
   width: 100%;
   z-index: 1;
 }
-
 .bottomImage img {
   display: block;
   height: auto;
@@ -117,26 +107,21 @@
   max-width: none;
   width: 110%;
 }
-
 @media (min-width: 701px) and (max-width: 1000px) {
   .objectives {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-
 @media (max-width: 700px) {
   .hero {
     min-height: 42svh;
     padding: 7rem 1rem 2.5rem;
   }
-
   .objectives {
     grid-template-columns: 1fr;
     padding: 0 1rem;
   }
-
   .objectiveCard {
     min-height: 0;
   }
-
 }

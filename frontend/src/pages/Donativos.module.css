@@ -5,7 +5,6 @@
   padding: clamp(9rem, 15vh, 12rem) 1.5rem 6rem;
   position: relative;
 }
-
 .donarImage {
   border-radius: 50%;
   height: 428.3px;
@@ -17,7 +16,6 @@
   width: 428.3px;
   z-index: 0;
 }
-
 .layout {
   display: grid;
   gap: clamp(3rem, 8vw, 8rem);
@@ -28,13 +26,11 @@
   width: 100%;
   z-index: 1;
 }
-
 .titleBlock {
   align-self: start;
   position: sticky;
   top: 8rem;
 }
-
 .titleBlock > p {
   color: #7f9544;
   font-size: 0.8rem;
@@ -43,19 +39,29 @@
   margin-bottom: 1rem;
   text-transform: uppercase;
 }
-
 .titleBlock h1 {
   color: var(--green-bg-letters2);
-  font-family: 'Open Sauce', 'Aileron', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    "Open Sauce",
+    "Aileron",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: clamp(4rem, 8vw, 7rem);
   font-weight: 700;
   letter-spacing: -0.055em;
   line-height: 0.9;
 }
-
 .destinations h2 {
   color: var(--green-bg-letters2);
-  font-family: 'Open Sauce', 'Aileron', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    "Open Sauce",
+    "Aileron",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: clamp(1.2rem, 2vw, 1.65rem);
   font-weight: 400;
   letter-spacing: -0.015em;
@@ -64,33 +70,31 @@
   max-width: none;
   text-align: center;
 }
-
 .selectionStep,
 .amountStep {
   animation: stepFade 350ms ease both;
 }
-
 @keyframes stepFade {
   from {
     opacity: 0;
     transform: translateY(10px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
 .grid {
   display: grid;
   gap: 1.25rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
-
 .card {
-  background:
-    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.16), transparent 34%),
+  background: radial-gradient(
+      circle at 18% 12%,
+      rgba(255, 255, 255, 0.16),
+      transparent 34%
+    ),
     linear-gradient(135deg, #3d5121, #7f9544);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 26px;
@@ -106,9 +110,10 @@
   padding: clamp(1.5rem, 3vw, 2.25rem);
   position: relative;
   text-align: left;
-  transition: box-shadow 200ms ease, transform 200ms ease;
+  transition:
+    box-shadow 200ms ease,
+    transform 200ms ease;
 }
-
 .card::before {
   background: linear-gradient(
     125deg,
@@ -118,24 +123,29 @@
     rgba(16, 24, 9, 0.08) 100%
   );
   border-radius: inherit;
-  content: '';
+  content: "";
   inset: 0;
   pointer-events: none;
   position: absolute;
 }
-
 .card::after {
-  background-image:
-    repeating-linear-gradient(8deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 4px),
-    repeating-linear-gradient(98deg, rgba(16, 24, 9, 0.018) 0 1px, transparent 1px 5px);
-  content: '';
+  background-image: repeating-linear-gradient(
+      8deg,
+      rgba(255, 255, 255, 0.018) 0 1px,
+      transparent 1px 4px
+    ),
+    repeating-linear-gradient(
+      98deg,
+      rgba(16, 24, 9, 0.018) 0 1px,
+      transparent 1px 5px
+    );
+  content: "";
   inset: 0;
   mix-blend-mode: soft-light;
   opacity: 0.75;
   pointer-events: none;
   position: absolute;
 }
-
 .card:hover {
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.12),
@@ -146,21 +156,24 @@
     inset 0 -3px 4px rgba(25, 34, 15, 0.2);
   transform: translateY(-5px) rotateX(0.4deg);
 }
-
 .card > h3,
 .card > p {
   position: relative;
   z-index: 1;
 }
-
 .card h3 {
   color: #ffffff;
-  font-family: 'Open Sauce', 'Aileron', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    "Open Sauce",
+    "Aileron",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: clamp(1.35rem, 2.2vw, 1.8rem);
   font-weight: 700;
   line-height: 1.1;
 }
-
 .card p {
   color: rgba(255, 255, 255, 0.82);
   font-size: 0.92rem;
@@ -168,7 +181,6 @@
   margin-top: 0.85rem;
   max-width: 340px;
 }
-
 .card strong {
   bottom: 1.5rem;
   color: #ffffff;
@@ -178,10 +190,12 @@
   right: 1.5rem;
   z-index: 1;
 }
-
 .amountStep {
-  background:
-    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.13), transparent 34%),
+  background: radial-gradient(
+      circle at 18% 12%,
+      rgba(255, 255, 255, 0.13),
+      transparent 34%
+    ),
     linear-gradient(135deg, #3d5121, #7f9544);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 28px;
@@ -194,7 +208,6 @@
   max-width: 620px;
   padding: clamp(2rem, 5vw, 3.5rem);
 }
-
 .amountStep .backButton {
   background: transparent;
   border: 0;
@@ -206,7 +219,6 @@
   margin-bottom: 2rem;
   padding: 0;
 }
-
 .amountStep > p {
   color: #dfe8bd;
   font-size: 0.75rem;
@@ -214,7 +226,6 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-
 .amountStep h2 {
   color: #ffffff;
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
@@ -222,21 +233,18 @@
   margin: 0.65rem 0 0;
   text-align: left;
 }
-
 .amountStep > span {
   color: rgba(255, 255, 255, 0.8);
   display: block;
   line-height: 1.5;
   margin-top: 0.8rem;
 }
-
 .amountStep > label {
   display: block;
   font-size: 0.92rem;
   font-weight: 800;
   margin: 2rem 0 0.65rem;
 }
-
 .amountField {
   align-items: center;
   background: var(--bg);
@@ -245,13 +253,11 @@
   grid-template-columns: auto 1fr auto;
   padding: 0 1rem;
 }
-
 .amountField > span {
   color: var(--green-bg-letters2);
   font-size: 1.8rem;
   font-weight: 700;
 }
-
 .amountField input {
   background: transparent;
   border: 0;
@@ -264,19 +270,16 @@
   padding: 1rem 0.75rem;
   width: 100%;
 }
-
 .amountField strong {
   color: #777466;
   font-size: 0.78rem;
 }
-
 .quickAmounts {
   display: grid;
   gap: 0.6rem;
   grid-template-columns: repeat(4, 1fr);
   margin-top: 0.8rem;
 }
-
 .quickAmounts button {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.26);
@@ -288,11 +291,9 @@
   font-weight: 800;
   padding: 0.6rem 0.5rem;
 }
-
 .quickAmounts button:hover {
   background: rgba(255, 255, 255, 0.18);
 }
-
 .donateButton {
   background: var(--bg);
   border: 0;
@@ -305,7 +306,6 @@
   min-height: 50px;
   width: 100%;
 }
-
 .amountStep > small {
   color: rgba(255, 255, 255, 0.65);
   display: block;
@@ -313,68 +313,121 @@
   margin-top: 0.8rem;
   text-align: center;
 }
-
 @media (min-width: 951px) and (max-width: 1599px) {
-  .page { min-height: 100svh; padding: 8rem 2rem 5rem; }
-  .layout { gap: 5rem; grid-template-columns: minmax(230px, 0.65fr) minmax(560px, 1.35fr); max-width: 1180px; }
-  .titleBlock { top: 7rem; }
-  .titleBlock h1 { font-size: clamp(3.75rem, 7vw, 6rem); }
-  .destinations h2 { margin-bottom: 1.5rem; }
-  .grid { gap: 1rem; }
-  .card { border-radius: 22px; min-height: 230px; padding: 1.75rem; }
-  .card h3 { font-size: clamp(1.25rem, 1.8vw, 1.6rem); }
-  .donarImage { height: 320px; left: -80px; top: 68%; width: 320px; }
-  .amountStep { max-width: 560px; padding: 2.5rem; }
+  .page {
+    min-height: 100svh;
+    padding: 8rem 2rem 5rem;
+  }
+  .layout {
+    gap: 5rem;
+    grid-template-columns: minmax(230px, 0.65fr) minmax(560px, 1.35fr);
+    max-width: 1180px;
+  }
+  .titleBlock {
+    top: 7rem;
+  }
+  .titleBlock h1 {
+    font-size: clamp(3.75rem, 7vw, 6rem);
+  }
+  .destinations h2 {
+    margin-bottom: 1.5rem;
+  }
+  .grid {
+    gap: 1rem;
+  }
+  .card {
+    border-radius: 22px;
+    min-height: 230px;
+    padding: 1.75rem;
+  }
+  .card h3 {
+    font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+  }
+  .donarImage {
+    height: 320px;
+    left: -80px;
+    top: 68%;
+    width: 320px;
+  }
+  .amountStep {
+    max-width: 560px;
+    padding: 2.5rem;
+  }
 }
-
 @media (max-width: 950px) {
-  .page { min-height: 100svh; padding: 8rem 2rem 5rem; }
+  .page {
+    min-height: 100svh;
+    padding: 8rem 2rem 5rem;
+  }
   .layout {
     gap: 3rem;
     grid-template-columns: 1fr;
     max-width: 760px;
   }
-
   .titleBlock {
     position: static;
   }
-
-  .titleBlock h1 { font-size: clamp(3.5rem, 10vw, 5.5rem); }
-  .donarImage { height: 280px; left: -70px; top: 72%; width: 280px; }
-  .card { min-height: 230px; }
-  .amountStep { max-width: 560px; }
+  .titleBlock h1 {
+    font-size: clamp(3.5rem, 10vw, 5.5rem);
+  }
+  .donarImage {
+    height: 280px;
+    left: -70px;
+    top: 72%;
+    width: 280px;
+  }
+  .card {
+    min-height: 230px;
+  }
+  .amountStep {
+    max-width: 560px;
+  }
 }
-
 @media (max-width: 620px) {
   .page {
     min-height: 100svh;
     padding: 8rem 1rem 4rem;
   }
-
-  .layout { gap: 2.25rem; }
-  .titleBlock h1 { font-size: clamp(3rem, 16vw, 4.5rem); }
-  .destinations h2 { font-size: 1.3rem; margin-bottom: 1.4rem; }
-
+  .layout {
+    gap: 2.25rem;
+  }
+  .titleBlock h1 {
+    font-size: clamp(3rem, 16vw, 4.5rem);
+  }
+  .destinations h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1.4rem;
+  }
   .grid {
     grid-template-columns: 1fr;
   }
-
   .card {
     border-radius: 20px;
     min-height: 210px;
     padding: 1.5rem;
   }
-
-  .donarImage { height: 220px; left: -65px; top: 80%; width: 220px; }
-  .amountStep { border-radius: 22px; margin-top: 1.5rem; padding: 1.5rem; }
-  .amountStep .backButton { margin-bottom: 1.5rem; }
-  .amountField input { font-size: 1.8rem; padding: 0.85rem 0.6rem; }
-
+  .donarImage {
+    height: 220px;
+    left: -65px;
+    top: 80%;
+    width: 220px;
+  }
+  .amountStep {
+    border-radius: 22px;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+  }
+  .amountStep .backButton {
+    margin-bottom: 1.5rem;
+  }
+  .amountField input {
+    font-size: 1.8rem;
+    padding: 0.85rem 0.6rem;
+  }
   .quickAmounts {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
 @media (prefers-reduced-motion: reduce) {
   .selectionStep,
   .amountStep {

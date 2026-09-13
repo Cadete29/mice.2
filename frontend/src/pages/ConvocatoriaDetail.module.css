@@ -1,1 +1,166 @@
-.page{background:#f4f5ed;min-height:75svh;padding:8rem max(1rem,4vw) 5rem}.call{margin:auto;max-width:1180px}.back{color:#405a29;display:inline-block;font-weight:800;margin-bottom:1.5rem}.layout{align-items:start;background:#fff;border:1px solid #e2e5d7;border-radius:26px;display:grid;gap:clamp(1.5rem,4vw,3rem);grid-template-columns:minmax(0,1fr) minmax(0,1fr);overflow:hidden;padding:clamp(1rem,3vw,2rem)}.image{aspect-ratio:4/3;border-radius:18px;display:block;object-fit:cover;object-position:center;width:100%}.thumbnails{display:grid;gap:.6rem;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));margin-top:.8rem}.thumbnails button{background:#eef1e6;border:2px solid transparent;border-radius:10px;cursor:pointer;overflow:hidden;padding:0}.thumbnails .active{border-color:#7f9544}.thumbnails img{aspect-ratio:1;display:block;object-fit:cover;width:100%}.content{min-width:0;padding:1rem 0}.category{color:#7f9544;font-size:.78rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase}.content h1{color:#33451f;font-size:clamp(2rem,5vw,4rem);line-height:1;margin:.5rem 0 1rem;overflow-wrap:anywhere}.author{color:#656b5c;margin-bottom:2rem}.description{color:#3f4438;line-height:1.7;overflow-wrap:anywhere;white-space:pre-wrap}.contacts{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:2rem}.contacts a{background:#405a29;border-radius:999px;color:#fff;font-weight:800;padding:.65rem 1rem}.apply{background:#405a29;border:0;border-radius:999px;color:#fff;cursor:pointer;display:inline-block;font:inherit;font-weight:800;margin-top:1.25rem;padding:.7rem 1rem}.apply:disabled{cursor:wait;opacity:.65}.status{color:#405a29;font-weight:700;line-height:1.45;margin-top:.75rem}.loading,.error{margin:auto;max-width:800px;text-align:center}.error{background:#fff;border-radius:20px;padding:3rem}.error a{color:#405a29;font-weight:800}@media(max-width:760px){.layout{grid-template-columns:1fr}.content{padding:.25rem}}
+.page {
+  background: #f4f5ed;
+  min-height: 75svh;
+  padding: 8rem max(1rem, 4vw) 5rem;
+}
+
+.call {
+  margin: auto;
+  max-width: 1180px;
+}
+
+.back {
+  color: #405a29;
+  display: inline-block;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+}
+
+.layout {
+  align-items: start;
+  background: #fff;
+  border: 1px solid #e2e5d7;
+  border-radius: 26px;
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  overflow: hidden;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.image {
+  aspect-ratio: 4/3;
+  border-radius: 18px;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
+.thumbnails {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  margin-top: 0.8rem;
+}
+
+.thumbnails button {
+  background: #eef1e6;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0;
+}
+
+.thumbnails .active {
+  border-color: #7f9544;
+}
+
+.thumbnails img {
+  aspect-ratio: 1;
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
+.content {
+  min-width: 0;
+  padding: 1rem 0;
+}
+
+.category {
+  color: #7f9544;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.content h1 {
+  color: #33451f;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1;
+  margin: 0.5rem 0 1rem;
+  overflow-wrap: anywhere;
+}
+
+.author {
+  color: #656b5c;
+  margin-bottom: 2rem;
+}
+
+.description {
+  color: #3f4438;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 2rem;
+}
+
+.contacts a {
+  background: #405a29;
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 800;
+  padding: 0.65rem 1rem;
+}
+
+.apply {
+  background: #405a29;
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font: inherit;
+  font-weight: 800;
+  margin-top: 1.25rem;
+  padding: 0.7rem 1rem;
+}
+
+.apply:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.status {
+  color: #405a29;
+  font-weight: 700;
+  line-height: 1.45;
+  margin-top: 0.75rem;
+}
+
+.loading,
+.error {
+  margin: auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+.error {
+  background: #fff;
+  border-radius: 20px;
+  padding: 3rem;
+}
+
+.error a {
+  color: #405a29;
+  font-weight: 800;
+}
+
+@media (max-width: 760px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .content {
+    padding: 0.25rem;
+  }
+}

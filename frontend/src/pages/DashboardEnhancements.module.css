@@ -1,1 +1,160 @@
-.projectNotice{background:#f3f7e9;border-left:4px solid #7f9544;border-radius:12px;color:#3d5121;margin-top:1.25rem;padding:1rem 1.15rem}.projectNotice strong{display:block;margin-bottom:.35rem}.projectNotice p{color:#5d6650;line-height:1.5;margin:0}.error{background:#fff0ed;border-radius:10px;color:#8a2d20;padding:.8rem}.projectGrid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(240px,285px));justify-content:start;margin-top:2rem}.imagePicker{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}.imagePicker label{background:#f5f7f0;border:2px solid transparent;border-radius:14px;cursor:pointer;padding:.5rem}.imagePicker .mainImage{border-color:#7f9544}.imagePicker img{aspect-ratio:4/3;border-radius:9px;display:block;object-fit:cover;width:100%}.imagePicker span{align-items:center;display:flex;font-size:.72rem;gap:.3rem;margin-top:.45rem}.socialForm{display:grid;gap:1rem;margin-top:2rem;max-width:760px}.socialRow{align-items:end;border-bottom:1px solid #e5e8dd;display:grid;gap:1rem;grid-template-columns:1fr auto;padding-bottom:1rem}.socialRow>label:first-child{color:#4e5544;display:grid;font-size:.85rem;font-weight:800;gap:.4rem}.socialRow input{background:#fafbf7;border:1px solid #d4d8ca;border-radius:11px;font:inherit;padding:.8rem}.switch{align-items:center;display:flex;gap:.4rem;padding-bottom:.75rem}.socialForm>button{background:#405a29;border:0;border-radius:999px;color:#fff;cursor:pointer;font:inherit;font-weight:800;justify-self:start;padding:.75rem 1.25rem}@media(max-width:800px){.projectGrid{grid-template-columns:minmax(0,1fr)}.socialRow{grid-template-columns:1fr}}
+.projectNotice {
+  background: #f3f7e9;
+  border-left: 4px solid #7f9544;
+  border-radius: 12px;
+  color: #3d5121;
+  margin-top: 1.25rem;
+  padding: 1rem 1.15rem;
+}
+
+.projectNotice strong {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.projectNotice p {
+  color: #5d6650;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.error {
+  background: #fff0ed;
+  border-radius: 10px;
+  color: #8a2d20;
+  padding: 0.8rem;
+}
+
+.projectGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 285px));
+  justify-content: start;
+  margin-top: 2rem;
+}
+
+.imagePicker {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+}
+
+.imagePicker label {
+  background: #f5f7f0;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  cursor: pointer;
+  min-width: 0;
+  padding: 0.5rem;
+}
+
+.imagePicker .mainImage {
+  border-color: #7f9544;
+}
+
+.imagePicker img {
+  aspect-ratio: 4/3;
+  border-radius: 9px;
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
+.imagePicker span {
+  align-items: center;
+  display: flex;
+  font-size: 0.72rem;
+  gap: 0.3rem;
+  margin-top: 0.45rem;
+}
+
+.socialForm {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+  max-width: 760px;
+}
+
+.socialRow {
+  align-items: end;
+  border-bottom: 1px solid #e5e8dd;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr auto;
+  padding-bottom: 1rem;
+}
+
+.socialRow > label:first-child {
+  color: #4e5544;
+  display: grid;
+  font-size: 0.85rem;
+  font-weight: 800;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.socialRow input {
+  background: #fafbf7;
+  border: 1px solid #d4d8ca;
+  border-radius: 11px;
+  font: inherit;
+  min-width: 0;
+  padding: 0.8rem;
+  width: 100%;
+}
+
+.switch {
+  align-items: center;
+  display: flex;
+  gap: 0.4rem;
+  padding-bottom: 0.75rem;
+}
+
+.socialForm > button {
+  background: #405a29;
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  justify-self: start;
+  padding: 0.75rem 1.25rem;
+}
+
+@media (max-width: 800px) {
+  .projectGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .socialRow {
+    grid-template-columns: 1fr;
+  }
+
+  .switch {
+    padding-bottom: 0;
+  }
+
+  .socialForm > button {
+    justify-self: stretch;
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .projectGrid {
+    margin-top: 1.25rem;
+  }
+
+  .imagePicker {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .projectNotice {
+    padding: 0.85rem;
+  }
+
+  .socialForm {
+    margin-top: 1.25rem;
+  }
+}

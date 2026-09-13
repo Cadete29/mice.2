@@ -13,7 +13,7 @@ npm run dev
 Variable disponible:
 
 ```env
-VITE_API_URL=http://localhost:3000/api
+VITE_API_URL=https://xiuhcoatltech.com.mx/api
 ```
 
 ## Scripts
@@ -89,10 +89,14 @@ Los proyectos admiten hasta seis imágenes JPEG, PNG o WebP de máximo 3 MB cada
 
 Vite copia estos archivos de `public/` a la raíz de `dist/`:
 
-- `sitemap.xml`: rutas públicas estables de `https://www.micelo.org`.
+- `sitemap.xml`: rutas públicas estables de `https://micelo.org`.
 - `robots.txt`: referencia el sitemap y excluye `/administracion`, `/dashboard` y `/sign-up`.
 
-Las rutas con UUID requieren generación dinámica o durante el build.
+`src/seo.js` define títulos, descripciones, canonical, Open Graph y tarjetas sociales. La portada incluye datos estructurados de la organización. `main.jsx` aplica los metadatos según la URL.
+
+`npm run build` genera HTML con metadatos por ruta (`nosotros.html`, etc.), un fallback neutro `spa.html` y un sitemap sincronizado con las páginas públicas. El servidor debe resolver las rutas sin extensión a estos archivos; consulta [la guía de despliegue y Search Console](../docs/SEO_GOOGLE.md).
+
+El contenido de las páginas sigue renderizándose con React. Las rutas con UUID tienen metadatos genéricos en cliente y todavía requieren metadatos específicos del contenido y generación dinámica del sitemap.
 
 ## Accesibilidad y responsive
 
@@ -105,7 +109,6 @@ Hay navegación móvil, cuadrículas adaptativas, etiquetas accesibles, imágene
 ## Pendientes
 
 - Integrar Mercado Pago real.
-- Añadir metadata por ruta: título, descripción, canonical y Open Graph.
 - Generar sitemap para contenido dinámico.
 - Sustituir contenido e imágenes provisionales y optimizar recursos pesados.
 - Considerar un router si continúa creciendo el número de vistas.

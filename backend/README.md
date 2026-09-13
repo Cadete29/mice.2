@@ -27,7 +27,7 @@ npm run db:migrate
 npm run dev
 ```
 
-La API escucha normalmente en `http://localhost:3000`; su raíz documental es `/api` y salud es `GET /api/health`.
+La API escucha normalmente en `http://localhost:4002`; su raíz documental es `/api` y salud es `GET /api/health`.
 
 ## Configuración
 
@@ -140,19 +140,19 @@ Sólo puede existir una jornada abierta por el índice parcial de PostgreSQL.
 
 ## Correo
 
-Selecciona Gmail o Namecheap sin cambiar código:
+El backend puede usar Namecheap Private Email sin cambiar código:
 
 ```env
 EMAIL_ENABLED=true
-EMAIL_PROVIDER=gmail
-EMAIL_USER=cuenta@gmail.com
-EMAIL_PASSWORD=contraseña-de-aplicacion
+EMAIL_PROVIDER=namecheap
+EMAIL_USER=contacto@micelo.org
+EMAIL_PASSWORD=contraseña-smtp-de-namecheap
 EMAIL_FROM_NAME=MICE-LO
-EMAIL_FROM_ADDRESS=cuenta@gmail.com
-ADMIN_EMAIL=administracion@ejemplo.com
+EMAIL_FROM_ADDRESS=contacto@micelo.org
+ADMIN_EMAIL=contacto@micelo.org
 ```
 
-Para Namecheap usa `EMAIL_PROVIDER=namecheap`; por defecto se conecta a `mail.privateemail.com:465` con TLS. Se puede sobrescribir host, puerto y modo seguro.
+Con `EMAIL_PROVIDER=namecheap`, por defecto se conecta a `mail.privateemail.com:465` con TLS. `EMAIL_PASSWORD` debe ser la contraseña real del buzón o la contraseña SMTP generada en Namecheap Private Email. Se puede sobrescribir host, puerto y modo seguro si tu panel de Namecheap indica otros valores.
 
 ```bash
 npm run email:verify

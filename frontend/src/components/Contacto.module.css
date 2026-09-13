@@ -13,7 +13,6 @@
   padding: 5rem 1rem;
   position: relative;
 }
-
 /* Hoja decorativa superior izquierda */
 .contactoHojaGrande {
   height: 499.8px;
@@ -26,7 +25,6 @@
   width: 495.4px;
   z-index: 0;
 }
-
 /* Sol verde decorativo */
 .contactoSolVerde {
   height: 590.1px;
@@ -39,7 +37,6 @@
   width: 578.3px;
   z-index: 0;
 }
-
 .contactoContainer {
   align-items: center;
   display: grid;
@@ -51,15 +48,14 @@
   width: 100%;
   z-index: 1;
 }
-
 .contactoHeading h2 {
   color: #3d5021;
   font-family:
-    'Open Sauce',
-    'Aileron',
+    "Open Sauce",
+    "Aileron",
     -apple-system,
     BlinkMacSystemFont,
-    'Segoe UI',
+    "Segoe UI",
     Roboto,
     Oxygen,
     Ubuntu,
@@ -70,7 +66,6 @@
   line-height: 0.95;
   margin: 0;
 }
-
 .contactoCard {
   background: #3d5021;
   border-radius: 32px;
@@ -79,11 +74,10 @@
   width: 100%;
   z-index: 0;
 }
-
 /* Prolongación verde hacia la parte inferior */
 .contactoCard::after {
   background: #3d5021;
-  content: '';
+  content: "";
   height: 70vh;
   left: 0;
   position: absolute;
@@ -91,7 +85,6 @@
   width: 100%;
   z-index: -1;
 }
-
 /* Polen sobre la esquina superior izquierda */
 .contactoPolen {
   height: 94px;
@@ -104,7 +97,6 @@
   width: 90px;
   z-index: 3;
 }
-
 .contactoHojaDorada {
   height: 90px;
   left: -40px;
@@ -112,11 +104,11 @@
   pointer-events: none;
   position: absolute;
   top: 589px;
-  transform: translate3d(0, var(--contacto-parallax-dorada), 0) rotate(-118.9deg);
+  transform: translate3d(0, var(--contacto-parallax-dorada), 0)
+    rotate(-118.9deg);
   width: 80px;
   z-index: 3;
 }
-
 .contactoHojaDorada2 {
   height: 76px;
   left: 600px;
@@ -124,18 +116,17 @@
   pointer-events: none;
   position: absolute;
   top: 600px;
-  transform: translate3d(0, var(--contacto-parallax-dorada2), 0) rotate(-37.7deg);
+  transform: translate3d(0, var(--contacto-parallax-dorada2), 0)
+    rotate(-37.7deg);
   width: 75px;
   z-index: 3;
 }
-
 .contactoForm {
   display: grid;
   gap: 1.25rem;
   position: relative;
   z-index: 2;
 }
-
 /* Imagen inferior dentro de la tarjeta */
 .contactoHongis {
   display: block;
@@ -150,7 +141,6 @@
   width: 100%;
   z-index: 1;
 }
-
 .contactoHojaGrande,
 .contactoSolVerde,
 .contactoPolen,
@@ -159,39 +149,33 @@
 .contactoHongis {
   will-change: transform;
 }
-
 @media (prefers-reduced-motion: reduce) {
   .contactoHojaGrande {
     transform: rotate(-151.8deg);
   }
-
   .contactoSolVerde,
   .contactoPolen,
   .contactoHongis {
     transform: none;
   }
-
   .contactoHojaDorada {
     transform: rotate(-118.9deg);
   }
-
   .contactoHojaDorada2 {
     transform: rotate(-37.7deg);
   }
 }
-
 .formGroup {
   display: grid;
   gap: 0.45rem;
 }
-
 .formGroup label {
   color: #fff6e7;
   font-family:
-    'Aileron',
+    "Aileron",
     -apple-system,
     BlinkMacSystemFont,
-    'Segoe UI',
+    "Segoe UI",
     Roboto,
     Oxygen,
     Ubuntu,
@@ -199,7 +183,6 @@
   font-size: 0.95rem;
   font-weight: 700;
 }
-
 .formGroup input,
 .formGroup textarea {
   background: #fff6e7;
@@ -214,18 +197,15 @@
     box-shadow 180ms ease;
   width: 100%;
 }
-
 .formGroup input:focus,
 .formGroup textarea:focus {
   border-color: #a9bd70;
   box-shadow: 0 0 0 3px rgb(169 189 112 / 28%);
 }
-
 .formGroup textarea {
   min-height: 130px;
   resize: vertical;
 }
-
 .submitButton {
   background: #fff6e7;
   border: 2px solid #fff6e7;
@@ -233,10 +213,10 @@
   color: #3d5021;
   cursor: pointer;
   font-family:
-    'Aileron',
+    "Aileron",
     -apple-system,
     BlinkMacSystemFont,
-    'Segoe UI',
+    "Segoe UI",
     Roboto,
     Oxygen,
     Ubuntu,
@@ -249,17 +229,14 @@
     background-color 180ms ease,
     color 180ms ease;
 }
-
 .submitButton:hover {
   background: transparent;
   color: #fff6e7;
 }
-
 .submitButton:disabled {
   cursor: wait;
   opacity: 0.65;
 }
-
 .formStatus {
   border-radius: 10px;
   color: #fff6e7;
@@ -268,81 +245,159 @@
   margin: 0;
   min-height: 1.35rem;
 }
-
 .formStatus.success,
 .formStatus.error {
   padding: 0.75rem 1rem;
 }
-
 .formStatus.success {
   background: rgb(255 246 231 / 14%);
 }
-
 .formStatus.error {
   background: rgb(139 35 35 / 55%);
 }
-
 @media (min-width: 1101px) and (max-width: 1599px) {
-  .contactoSection { min-height: 100svh; padding-bottom: 5rem; padding-top: 5rem; }
-  .contactoContainer { gap: 4rem; grid-template-columns: minmax(0, 1fr) minmax(440px, 620px); max-width: 1180px; }
-  .contactoHeading h2 { font-size: clamp(3.5rem, 6vw, 5.75rem); }
-  .contactoCard { border-radius: 28px; padding: 2.5rem; }
-  .contactoHojaGrande { height: 400px; width: 396px; }
-  .contactoSolVerde { height: 440px; left: 24%; top: 72%; width: 431px; }
-  .contactoPolen { height: 78px; width: 75px; }
-  .contactoHojaDorada { height: 72px; top: 88%; width: 64px; }
-  .contactoHojaDorada2 { left: auto; right: 2rem; }
-  .contactoHongis { height: clamp(240px, 32vh, 360px); }
+  .contactoSection {
+    min-height: 100svh;
+    padding-bottom: 5rem;
+    padding-top: 5rem;
+  }
+  .contactoContainer {
+    gap: 4rem;
+    grid-template-columns: minmax(0, 1fr) minmax(440px, 620px);
+    max-width: 1180px;
+  }
+  .contactoHeading h2 {
+    font-size: clamp(3.5rem, 6vw, 5.75rem);
+  }
+  .contactoCard {
+    border-radius: 28px;
+    padding: 2.5rem;
+  }
+  .contactoHojaGrande {
+    height: 400px;
+    width: 396px;
+  }
+  .contactoSolVerde {
+    height: 440px;
+    left: 24%;
+    top: 72%;
+    width: 431px;
+  }
+  .contactoPolen {
+    height: 78px;
+    width: 75px;
+  }
+  .contactoHojaDorada {
+    height: 72px;
+    top: 88%;
+    width: 64px;
+  }
+  .contactoHojaDorada2 {
+    left: auto;
+    right: 2rem;
+  }
+  .contactoHongis {
+    height: clamp(240px, 32vh, 360px);
+  }
 }
-
 @media (min-width: 769px) and (max-width: 1100px) {
-  .contactoSection { align-items: flex-start; min-height: 100svh; padding: 7rem 2rem 5rem; }
-  .contactoContainer { gap: 3rem; grid-template-columns: 1fr; max-width: 760px; }
-  .contactoHeading h2 { font-size: clamp(3.25rem, 9vw, 5.5rem); max-width: 680px; }
-  .contactoCard { border-radius: 26px; justify-self: end; max-width: 680px; padding: 2.5rem; }
-  .contactoHojaGrande { height: 320px; left: -90px; top: -130px; width: 317px; }
-  .contactoSolVerde { height: 350px; left: 5%; top: 78%; width: 343px; }
-  .contactoPolen { height: 72px; width: 69px; }
-  .contactoHojaDorada { height: 68px; top: 86%; width: 60px; }
-  .contactoHojaDorada2 { left: auto; right: 2rem; }
-  .contactoHongis { height: 260px; }
+  .contactoSection {
+    align-items: flex-start;
+    min-height: 100svh;
+    padding: 7rem 2rem 5rem;
+  }
+  .contactoContainer {
+    gap: 3rem;
+    grid-template-columns: 1fr;
+    max-width: 760px;
+  }
+  .contactoHeading h2 {
+    font-size: clamp(3.25rem, 9vw, 5.5rem);
+    max-width: 680px;
+  }
+  .contactoCard {
+    border-radius: 26px;
+    justify-self: end;
+    max-width: 680px;
+    padding: 2.5rem;
+  }
+  .contactoHojaGrande {
+    height: 320px;
+    left: -90px;
+    top: -130px;
+    width: 317px;
+  }
+  .contactoSolVerde {
+    height: 350px;
+    left: 5%;
+    top: 78%;
+    width: 343px;
+  }
+  .contactoPolen {
+    height: 72px;
+    width: 69px;
+  }
+  .contactoHojaDorada {
+    height: 68px;
+    top: 86%;
+    width: 60px;
+  }
+  .contactoHojaDorada2 {
+    left: auto;
+    right: 2rem;
+  }
+  .contactoHongis {
+    height: 260px;
+  }
 }
-
 @media (max-width: 768px) {
   .contactoSection {
     align-items: flex-start;
     padding: 7rem 1rem 4rem;
   }
-
   .contactoContainer {
     gap: 3rem;
     grid-template-columns: 1fr;
   }
-
   .contactoHeading h2 {
     font-size: clamp(3rem, 16vw, 5rem);
   }
-
   .contactoCard {
     border-radius: 24px;
   }
-
   .contactoCard::after {
     top: calc(100% - 24px);
   }
-
   .contactoHongis {
     height: 280px;
   }
 }
-
 @media (max-width: 560px) {
-  .contactoSection { padding: 6rem 1rem 3rem; }
-  .contactoContainer { gap: 2rem; }
-  .contactoHeading h2 { font-size: clamp(2.7rem, 14vw, 4rem); }
-  .contactoCard { padding: 1.5rem; }
-  .contactoForm { gap: 1rem; }
-  .formGroup textarea { min-height: 110px; }
-  .contactoPolen { height: 65px; left: -24px; width: 62px; }
-  .contactoHojaDorada2 { left: auto; right: 1rem; }
+  .contactoSection {
+    padding: 6rem 1rem 3rem;
+  }
+  .contactoContainer {
+    gap: 2rem;
+  }
+  .contactoHeading h2 {
+    font-size: clamp(2.7rem, 14vw, 4rem);
+  }
+  .contactoCard {
+    padding: 1.5rem;
+  }
+  .contactoForm {
+    gap: 1rem;
+  }
+  .formGroup textarea {
+    min-height: 110px;
+  }
+  .contactoPolen {
+    height: 65px;
+    left: -24px;
+    width: 62px;
+  }
+  .contactoHojaDorada2 {
+    left: auto;
+    right: 1rem;
+  }
 }

@@ -2,12 +2,9 @@ const fs = require('node:fs/promises');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { pool } = require('../config/database');
+const { migrationBody } = require('../utils/migration-sql');
 
 const LOCK_ID = 741_852_963;
-
-function migrationBody(sql) {
-  return sql.replace(/^\s*BEGIN\s*;?/i, '').replace(/COMMIT\s*;?\s*$/i, '').trim();
-}
 
 async function migrate() {
   const client = await pool.connect();
@@ -35,7 +32,7 @@ async function migrate() {
       }
       await client.query('BEGIN');
       try {
-        await client.query(migrationBody(sql));
+        await client.query(migrationBody(sql, file));
         await client.query(
           'INSERT INTO schema_migrations (nombre, checksum) VALUES ($1, $2)', [file, checksum],
         );

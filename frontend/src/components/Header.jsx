@@ -1,55 +1,53 @@
-import { useEffect, useState } from 'react'
-import logo1 from '../assets/logo1.png'
-import styles from './Header.module.css'
-import { getCurrentUser, hasAccessToken, logout } from '../services/authApi'
-
-const cx = (...classNames) => classNames.filter(Boolean).join(' ')
-
+import { useEffect, useState } from "react";
+import logo1 from "../assets/logo1.webp";
+import styles from "./Header.module.css";
+import { getCurrentUser, hasAccessToken, logout } from "../services/authApi";
+const cx = (...classNames) => classNames.filter(Boolean).join(" ");
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [currentUser, setCurrentUser] = useState(null)
-  const isAuthenticated = Boolean(currentUser || hasAccessToken())
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const isAuthenticated = Boolean(currentUser || hasAccessToken());
   useEffect(() => {
-    let active = true
-    const syncSession = () => { if (!hasAccessToken()) setCurrentUser(null) }
+    let active = true;
+    const syncSession = () => {
+      if (!hasAccessToken()) setCurrentUser(null);
+    };
     if (hasAccessToken()) {
       getCurrentUser()
-        .then((user) => { if (active) setCurrentUser(user || null) })
-        .catch(() => { if (active) setCurrentUser(null) })
+        .then((user) => {
+          if (active) setCurrentUser(user || null);
+        })
+        .catch(() => {
+          if (active) setCurrentUser(null);
+        });
     }
-
-    window.addEventListener('storage', syncSession)
-    window.addEventListener('micelo-auth-change', syncSession)
+    window.addEventListener("storage", syncSession);
+    window.addEventListener("micelo-auth-change", syncSession);
     return () => {
-      active = false
-      window.removeEventListener('storage', syncSession)
-      window.removeEventListener('micelo-auth-change', syncSession)
-    }
-  }, [])
-
+      active = false;
+      window.removeEventListener("storage", syncSession);
+      window.removeEventListener("micelo-auth-change", syncSession);
+    };
+  }, []);
   const handleSession = async () => {
-    setIsMenuOpen(false)
-
+    setIsMenuOpen(false);
     if (!isAuthenticated) {
-      window.location.href = '/sign-up'
-      return
+      window.location.href = "/sign-up";
+      return;
     }
-
-    await logout().catch(() => {})
-    window.location.href = '/'
-  }
-
+    await logout().catch(() => {});
+    window.location.href = "/";
+  };
   return (
     <header className={styles.header}>
       <div className={styles.headerContainer}>
         <div className={styles.logo}>
           <a href="/" aria-label="EcoKid inicio">
-            <img src={logo1} alt="EcoKid" />
+            <img decoding="async" src={logo1} alt="EcoKid" />
           </a>
         </div>
-        
-        <button 
+
+        <button
           className={styles.menuToggle}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle menu"
@@ -59,17 +57,49 @@ const Header = () => {
 
         <nav className={cx(styles.navMenu, isMenuOpen && styles.open)}>
           <ul>
-            <li><a href="/chiapas-por-el-clima" onClick={() => setIsMenuOpen(false)}>Chiapas por el clima</a></li>
-            <li><a href="/convocatorias" onClick={() => setIsMenuOpen(false)}>Convocatorias</a></li>
-            <li><a href="/nosotros" onClick={() => setIsMenuOpen(false)}>Nosotros</a></li>
-            <li><a href="/familia" onClick={() => setIsMenuOpen(false)}>Familia</a></li>
-            {isAuthenticated && <li><a href={currentUser?.tipo === 'administrador' ? '/administracion' : '/dashboard'} onClick={() => setIsMenuOpen(false)}>Dashboard</a></li>}
+            <li>
+              <a
+                href="/chiapas-por-el-clima"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Chiapas por el clima
+              </a>
+            </li>
+            <li>
+              <a href="/convocatorias" onClick={() => setIsMenuOpen(false)}>
+                Convocatorias
+              </a>
+            </li>
+            <li>
+              <a href="/nosotros" onClick={() => setIsMenuOpen(false)}>
+                Nosotros
+              </a>
+            </li>
+            <li>
+              <a href="/familia" onClick={() => setIsMenuOpen(false)}>
+                Familia
+              </a>
+            </li>
+            {isAuthenticated && (
+              <li>
+                <a
+                  href={
+                    currentUser?.tipo === "administrador"
+                      ? "/administracion"
+                      : "/dashboard"
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Dashboard
+                </a>
+              </li>
+            )}
             <li>
               <button
-                className={`${styles.sessionButton} ${isAuthenticated ? styles.logoutButton : ''}`}
+                className={`${styles.sessionButton} ${isAuthenticated ? styles.logoutButton : ""}`}
                 onClick={handleSession}
                 type="button"
-                aria-label={isAuthenticated ? 'Logout' : 'Login'}
+                aria-label={isAuthenticated ? "Logout" : "Login"}
               >
                 <span className={styles.sessionIcon} aria-hidden="true">
                   <svg viewBox="0 0 512 512">
@@ -77,7 +107,7 @@ const Header = () => {
                   </svg>
                 </span>
                 <span className={styles.sessionText}>
-                  {isAuthenticated ? 'Logout' : 'Login'}
+                  {isAuthenticated ? "Logout" : "Login"}
                 </span>
               </button>
             </li>
@@ -85,7 +115,6 @@ const Header = () => {
         </nav>
       </div>
     </header>
-  )
-}
-
-export default Header
+  );
+};
+export default Header;

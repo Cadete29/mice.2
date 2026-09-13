@@ -1,21 +1,254 @@
-import {useEffect,useState} from 'react'
-import * as api from '../services/authApi'
-import ConvocatoriaCard from './ConvocatoriaCard'
-import styles from './AdminCalls.module.css'
-import DescriptionEditor from './DescriptionEditor'
-
-const serialize=(item)=>item.dataUrl||new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(item.file)})
-
-export default function AdminCallManagement(){
- const[calls,setCalls]=useState([]),[categories,setCategories]=useState([]),[editing,setEditing]=useState(null),[images,setImages]=useState([]),[principal,setPrincipal]=useState(0),[type,setType]=useState('interna'),[message,setMessage]=useState(''),[saving,setSaving]=useState(false)
- useEffect(()=>{Promise.all([api.listAdminCalls(),api.listCallCategories()]).then(([c,k])=>{setCalls(c.calls);setCategories(k.categories)}).catch(e=>setMessage(e.message))},[])
- const open=async item=>{try{const r=await api.getAdminCall(item.id),gallery=r.call.gallery?.length?r.call.gallery:[{image:r.call.image,principal:true}];setEditing(r.call);setImages(gallery.map(x=>({dataUrl:x.image,preview:x.image})));setPrincipal(Math.max(gallery.findIndex(x=>x.principal),0));setType(r.call.type);setMessage('')}catch(error){setMessage(error.message)}}
- const add=e=>{const files=[...e.target.files];e.target.value='';if(files.some(file=>file.size>3*1024*1024))return setMessage('Cada imagen debe pesar máximo 3 MB.');if(images.length+files.length>6)return setMessage('Puedes conservar máximo 6 imágenes.');setImages(v=>[...v,...files.map(file=>({file,preview:URL.createObjectURL(file)}))])}
- const removeImage=index=>{if(images.length===1)return setMessage('La convocatoria debe conservar una imagen.');setImages(v=>v.filter((_,i)=>i!==index));setPrincipal(p=>p===index?0:p>index?p-1:p)}
- const save=async e=>{e.preventDefault();setSaving(true);const f=e.currentTarget;try{const serialized=await Promise.all(images.map(serialize)),payload={titulo:f.titulo.value,descripcion:f.descripcion.value,categoria:f.categoria.value,tipo:type,enlaceExterno:type==='externa'?f.enlaceExterno.value:null,imagen:serialized[principal],imagenes:serialized,imagenPrincipal:principal,correo:null,whatsapp:null,facebook:null,instagram:null,x:null,tiktok:null,youtube:null,linkedin:null};const r=await api.updateCall(editing.id,payload);setCalls(v=>v.map(x=>x.id===editing.id?r.call:x));setEditing(null);setMessage('Convocatoria actualizada.')}catch(error){setMessage(error.message)}finally{setSaving(false)}}
- const visibility=async item=>{try{const r=await api.setCallVisibility(item.id,!item.active);setCalls(v=>v.map(x=>x.id===item.id?r.call:x));setMessage(r.call.active?'Convocatoria visible.':'Convocatoria oculta del catálogo público.')}catch(error){setMessage(error.message)}}
- const remove=async item=>{if(!confirm(`¿Eliminar definitivamente "${item.title}"?`))return;try{await api.deleteCall(item.id);setCalls(v=>v.filter(x=>x.id!==item.id));setMessage('Convocatoria eliminada.')}catch(error){setMessage(error.message)}}
- return <section className={styles.wrapper}><p>Edita, oculta o elimina convocatorias. Las ocultas permanecen aquí, pero no aparecen en el catálogo público.</p>{message&&<p className={styles.message}>{message}</p>}<div className={styles.cards}>{calls.map(item=><div className={!item.active?styles.hiddenCard:''} key={item.id}><ConvocatoriaCard convocatoria={item}/><span className={styles.visibility}>{item.active?'Visible':'Oculta'}</span><div className={styles.actions}><button onClick={()=>open(item)}>Editar</button><button onClick={()=>visibility(item)}>{item.active?'Ocultar':'Mostrar'}</button><button className={styles.delete} onClick={()=>remove(item)}>Eliminar</button></div></div>)}{!calls.length&&<p>No hay convocatorias.</p>}</div>
- {editing&&<div className={styles.backdrop} onMouseDown={e=>{if(e.target===e.currentTarget)setEditing(null)}}><section className={styles.modal} role="dialog" aria-modal="true"><div className={styles.modalHead}><h2>Editar convocatoria</h2><button onClick={()=>setEditing(null)} aria-label="Cerrar">×</button></div><form className={styles.form} onSubmit={save}><label>Título<input name="titulo" defaultValue={editing.title} required/></label><label>Categoría<select name="categoria" defaultValue={editing.category}>{categories.map(c=><option key={c.id} value={c.name}>{c.name}</option>)}</select></label><label>Tipo<select value={type} onChange={e=>setType(e.target.value)}><option value="interna">Interna</option><option value="externa">Externa</option></select></label>{type==='externa'&&<label>Enlace externo<input name="enlaceExterno" type="url" defaultValue={editing.externalUrl||''} required/></label>}<label className={styles.full}>Descripción con formato<DescriptionEditor defaultValue={editing.description}/></label><label className={styles.full}>Agregar imágenes<input type="file" accept="image/jpeg,image/png,image/webp" multiple onChange={add}/></label><div className={`${styles.full} ${styles.previews}`}>{images.map((item,index)=><label className={principal===index?styles.selected:''} key={item.preview}><img src={item.preview} alt={`Imagen ${index+1}`}/><span><input type="radio" checked={principal===index} onChange={()=>setPrincipal(index)}/> Principal</span><button type="button" onClick={()=>removeImage(index)}>Quitar</button></label>)}</div><button className={styles.full} disabled={saving}>{saving?'Guardando…':'Guardar cambios'}</button></form></section></div>}
- </section>
+import { useEffect, useState } from "react";
+import * as api from "../services/authApi";
+import ConvocatoriaCard from "./ConvocatoriaCard";
+import styles from "./AdminCalls.module.css";
+import DescriptionEditor from "./DescriptionEditor";
+import { serializeImageFile } from "../utils/images";
+const serialize = (item) => item.dataUrl || serializeImageFile(item.file);
+export default function AdminCallManagement() {
+  const [calls, setCalls] = useState([]),
+    [categories, setCategories] = useState([]),
+    [editing, setEditing] = useState(null),
+    [images, setImages] = useState([]),
+    [principal, setPrincipal] = useState(0),
+    [type, setType] = useState("interna"),
+    [message, setMessage] = useState(""),
+    [saving, setSaving] = useState(false);
+  useEffect(() => {
+    Promise.all([api.listAdminCalls(), api.listCallCategories()])
+      .then(([c, k]) => {
+        setCalls(c.calls);
+        setCategories(k.categories);
+      })
+      .catch((e) => setMessage(e.message));
+  }, []);
+  const open = async (item) => {
+    try {
+      const r = await api.getAdminCall(item.id),
+        gallery = r.call.gallery?.length
+          ? r.call.gallery
+          : [
+              {
+                image: r.call.image,
+                principal: true,
+              },
+            ];
+      setEditing(r.call);
+      setImages(
+        gallery.map((x) => ({
+          dataUrl: x.image,
+          preview: x.image,
+        })),
+      );
+      setPrincipal(
+        Math.max(
+          gallery.findIndex((x) => x.principal),
+          0,
+        ),
+      );
+      setType(r.call.type);
+      setMessage("");
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+  const add = (e) => {
+    const files = [...e.target.files];
+    e.target.value = "";
+    if (files.some((file) => file.size > 3 * 1024 * 1024))
+      return setMessage("Cada imagen debe pesar máximo 3 MB.");
+    if (images.length + files.length > 6)
+      return setMessage("Puedes conservar máximo 6 imágenes.");
+    setImages((v) => [
+      ...v,
+      ...files.map((file) => ({
+        file,
+        preview: URL.createObjectURL(file),
+      })),
+    ]);
+  };
+  const removeImage = (index) => {
+    if (images.length === 1)
+      return setMessage("La convocatoria debe conservar una imagen.");
+    setImages((v) => v.filter((_, i) => i !== index));
+    setPrincipal((p) => (p === index ? 0 : p > index ? p - 1 : p));
+  };
+  const save = async (e) => {
+    e.preventDefault();
+    setSaving(true);
+    const f = e.currentTarget;
+    try {
+      const serialized = await Promise.all(images.map(serialize)),
+        payload = {
+          titulo: f.titulo.value,
+          descripcion: f.descripcion.value,
+          categoria: f.categoria.value,
+          tipo: type,
+          enlaceExterno: type === "externa" ? f.enlaceExterno.value : null,
+          imagen: serialized[principal],
+          imagenes: serialized,
+          imagenPrincipal: principal,
+          correo: null,
+          whatsapp: null,
+          facebook: null,
+          instagram: null,
+          x: null,
+          tiktok: null,
+          youtube: null,
+          linkedin: null,
+        };
+      const r = await api.updateCall(editing.id, payload);
+      setCalls((v) => v.map((x) => (x.id === editing.id ? r.call : x)));
+      setEditing(null);
+      setMessage("Convocatoria actualizada.");
+    } catch (error) {
+      setMessage(error.message);
+    } finally {
+      setSaving(false);
+    }
+  };
+  const visibility = async (item) => {
+    try {
+      const r = await api.setCallVisibility(item.id, !item.active);
+      setCalls((v) => v.map((x) => (x.id === item.id ? r.call : x)));
+      setMessage(
+        r.call.active
+          ? "Convocatoria visible."
+          : "Convocatoria oculta del catálogo público.",
+      );
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+  const remove = async (item) => {
+    if (!confirm(`¿Eliminar definitivamente "${item.title}"?`)) return;
+    try {
+      await api.deleteCall(item.id);
+      setCalls((v) => v.filter((x) => x.id !== item.id));
+      setMessage("Convocatoria eliminada.");
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+  return (
+    <section className={styles.wrapper}>
+      <p>
+        Edita, oculta o elimina convocatorias. Las ocultas permanecen aquí, pero
+        no aparecen en el catálogo público.
+      </p>
+      {message && <p className={styles.message}>{message}</p>}
+      <div className={styles.cards}>
+        {calls.map((item) => (
+          <div className={!item.active ? styles.hiddenCard : ""} key={item.id}>
+            <ConvocatoriaCard convocatoria={item} />
+            <span className={styles.visibility}>
+              {item.active ? "Visible" : "Oculta"}
+            </span>
+            <div className={styles.actions}>
+              <button onClick={() => open(item)}>Editar</button>
+              <button onClick={() => visibility(item)}>
+                {item.active ? "Ocultar" : "Mostrar"}
+              </button>
+              <button className={styles.delete} onClick={() => remove(item)}>
+                Eliminar
+              </button>
+            </div>
+          </div>
+        ))}
+        {!calls.length && <p>No hay convocatorias.</p>}
+      </div>
+      {editing && (
+        <div
+          className={styles.backdrop}
+          onMouseDown={(e) => {
+            if (e.target === e.currentTarget) setEditing(null);
+          }}
+        >
+          <section className={styles.modal} role="dialog" aria-modal="true">
+            <div className={styles.modalHead}>
+              <h2>Editar convocatoria</h2>
+              <button onClick={() => setEditing(null)} aria-label="Cerrar">
+                ×
+              </button>
+            </div>
+            <form className={styles.form} onSubmit={save}>
+              <label>
+                Título
+                <input name="titulo" defaultValue={editing.title} required />
+              </label>
+              <label>
+                Categoría
+                <select name="categoria" defaultValue={editing.category}>
+                  {categories.map((c) => (
+                    <option key={c.id} value={c.name}>
+                      {c.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Tipo
+                <select value={type} onChange={(e) => setType(e.target.value)}>
+                  <option value="interna">Interna</option>
+                  <option value="externa">Externa</option>
+                </select>
+              </label>
+              {type === "externa" && (
+                <label>
+                  Enlace externo
+                  <input
+                    name="enlaceExterno"
+                    type="url"
+                    defaultValue={editing.externalUrl || ""}
+                    required
+                  />
+                </label>
+              )}
+              <label className={styles.full}>
+                Descripción con formato
+                <DescriptionEditor defaultValue={editing.description} />
+              </label>
+              <label className={styles.full}>
+                Agregar imágenes
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  multiple
+                  onChange={add}
+                />
+              </label>
+              <div className={`${styles.full} ${styles.previews}`}>
+                {images.map((item, index) => (
+                  <label
+                    className={principal === index ? styles.selected : ""}
+                    key={item.preview}
+                  >
+                    <img
+                      decoding="async"
+                      src={item.preview}
+                      alt={`Imagen ${index + 1}`}
+                    />
+                    <span>
+                      <input
+                        type="radio"
+                        checked={principal === index}
+                        onChange={() => setPrincipal(index)}
+                      />{" "}
+                      Principal
+                    </span>
+                    <button type="button" onClick={() => removeImage(index)}>
+                      Quitar
+                    </button>
+                  </label>
+                ))}
+              </div>
+              <button className={styles.full} disabled={saving}>
+                {saving ? "Guardando…" : "Guardar cambios"}
+              </button>
+            </form>
+          </section>
+        </div>
+      )}
+    </section>
+  );
 }

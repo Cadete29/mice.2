@@ -4,6 +4,8 @@ const { pool } = require('./config/database');
 const emailService = require('./services/email.service');
 const { startCleanupScheduler } = require('./services/cleanup.service');
 
+const {startParticipantEmailScheduler}=require('./services/participant-email.service');
+
 async function start() {
   await pool.query('SELECT 1');
   console.log(`PostgreSQL conectado: ${config.DB_NAME}`);
@@ -33,6 +35,7 @@ async function start() {
   });
 
   const stopCleanupScheduler = startCleanupScheduler();
+  const stopParticipantEmails = startParticipantEmailScheduler();
 
   let shuttingDown = false;
   const shutdown = (signal) => {
@@ -40,6 +43,7 @@ async function start() {
     shuttingDown = true;
     console.warn(`Cerrando API por señal ${signal}.`);
     stopCleanupScheduler();
+    stopParticipantEmails();
 
     server.close(async () => {
       await pool.end();
